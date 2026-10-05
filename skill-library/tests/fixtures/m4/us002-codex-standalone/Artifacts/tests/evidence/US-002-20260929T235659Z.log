@@ -1,0 +1,86 @@
+Timestamp: 2026-09-29T23:56:59Z
+
+Environment: Python 3.11.16, pytest 9.1.1, Linux-7.0.0-34-generic-x86_64-with-glibc2.43
+
+Working directory: /tmp/claude-1000/-home-tom-projects-Augmentia/7ed23ca0-3f6c-4934-ac2a-cd2f20906015/scratchpad/m4/c
+
+HEAD: 5d5b3dd11dd40795e48fa27508fc6390ce4fb7d5
+
+Ref: working tree (uncommitted); inspected changes match IR-1 description.
+
+SHA256 textkit/text.py: 8c1ffa8295c9d7c2d60594c92e715f65d21764954f9b044ad23388db01694957
+"""Text helpers."""
+
+
+def word_count(text: str) -> int:
+    """Count words separated by runs of whitespace."""
+    return len(text.split())
+
+
+def truncate(text: str, width: int, suffix: str = "…") -> str:
+    """Shorten `text` to at most `width` characters, ending with `suffix` when it was cut."""
+    if width < len(suffix):
+        raise ValueError("width is smaller than the suffix")
+    if len(text) <= width:
+        return text
+    return text[: width - len(suffix)] + suffix
+
+
+SHA256 textkit/__init__.py: 58db620e717c237ba18b9afce7454e2ce45561afc7291bfffb4f45cb1adf3ed6
+from .text import truncate, word_count
+
+__all__ = ["truncate", "word_count"]
+
+
+SHA256 tests/test_text.py: 29e8cac2e3cfc7ac8bacd4ecb63d0ac180fff1a2301451b43eb0fb129ec5ee90
+import pytest
+
+from textkit import truncate, word_count
+
+
+@pytest.mark.parametrize(
+    "text", ["one two  three", "one\ttwo\nthree", "  one \t two\nthree  "]
+)
+def test_word_count_separates_words_by_whitespace_runs(text):
+    assert word_count(text) == 3
+
+
+def test_word_count_empty_text():
+    assert word_count("") == 0
+
+
+@pytest.mark.parametrize("text", [" ", "   ", "\t", "\n", " \t\r\n "])
+def test_word_count_whitespace_only(text):
+    assert word_count(text) == 0
+
+
+def test_short_text_is_unchanged():
+    assert truncate("hello", 10) == "hello"
+
+
+def test_long_text_is_cut_with_suffix():
+    assert truncate("hello world", 8) == "hello w…"
+
+
+def test_width_smaller_than_suffix_raises():
+    with pytest.raises(ValueError):
+        truncate("hello", 0)
+
+
+SHA256 pyproject.toml: 1a5c76711b799a94e07fc9fc88ae749e6ec1328096a3bfffedf44ee0b93438dc
+[project]
+name = "textkit"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+
+Command: python -m pytest -q
+
+............                                                             [100%]
+12 passed in 0.01s
+
+
+Exit code: 0

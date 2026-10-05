@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdlc-skill-library"
+version = "0.1.0"
+description = "Deterministic helper CLI for the first-party, Markdown-first SDLC Skill library"
+requires-python = ">=3.11"
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["sdlc"]
+
+[tool.setuptools.package-data]
+sdlc = ["templates/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["fixtures", ".git", "*.egg-info", ".venv"]
