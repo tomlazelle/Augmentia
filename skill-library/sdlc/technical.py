@@ -14,7 +14,8 @@ FIELD_RE = re.compile(r"^\s*[-*]\s+\*\*([^*:]+):\*\*\s*(.*?)\s*$")
 TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}Z)?$")
 AC_RE = re.compile(r"^AC-([1-9]\d*)$")
 NUMBERED_RE = re.compile(r"^\d+\.\s+\S")
-RECORD_ID = {"IR": re.compile(r"^(IR-\d+) — (\S+)\s*$"), "VR": re.compile(r"^(VR-\d+) — (\S+)\s*$")}
+RECORD_ID = {"IR": re.compile(r"^(IR-\d+) — (\S+)\s*$"), "VR": re.compile(r"^(VR-\d+) — (\S+)\s*$"),
+             "PUB": re.compile(r"^(PUB-\d+) — (\S+)\s*$")}
 UNRESOLVED_HEADING = "unresolved acceptance behavior (tbd)"
 
 
@@ -70,7 +71,8 @@ def acceptance_criteria_count(secs: list[Section]) -> int:
 
 
 def unresolved_tbd_bullets(secs: list[Section]) -> int:
-    sec = next((s for s in secs if s.level == 3 and s.title.lower() == UNRESOLVED_HEADING), None)
+    # The heading *title* is the contract; agents have written it at level 2 as well as the template's level 3.
+    sec = next((s for s in secs if s.level in (2, 3) and s.title.lower() == UNRESOLVED_HEADING), None)
     if sec is None:
         return 0
     return sum(1 for _, line in sec.body if re.match(r"^\s*[-*]\s+\*\*TBD\*\*", line))

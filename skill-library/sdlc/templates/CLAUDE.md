@@ -1,6 +1,6 @@
 # SDLC-governed documents
 
-This project keeps its requirements as Markdown under `BR/` (business), `PR/` (product), `Stories/` and `Artifacts/`, indexed by `map.md` files and managed with the `sdlc` CLI (`python -m sdlc`).
+This project keeps its requirements as Markdown under `BR/` (business), `PR/` (product), `Stories/` and `Artifacts/`, indexed by `map.md` files and managed with the `sdlc` CLI (`sdlc`).
 
 **Before you create or modify any document in those folders, invoke the matching Skill or, if you cannot invoke it, read its `SKILL.md` and follow its workflow and revision rules:**
 
@@ -15,4 +15,6 @@ This applies to small edits too, and especially to documents whose `status` is `
 
 Story delivery: implementing a Story's code is `implement-story`, reviewing it is `review-implementation`, and verifying it is `verify-story`. A Story's `delivery_status` changes only through those Skills (or the human): only `implement-story` sets `Implemented`, only `verify-story` sets `Verified`, and only from tests and checks that were actually run and recorded.
 
-Other rules the Skills rely on: get IDs only from `python -m sdlc allocate-id` / `retire-id`; run `python -m sdlc update-map` then `python -m sdlc validate` after any change; never edit a `map.md`'s generated region or anything under `.sdlc/` by hand.
+Status and publishing: `sdlc-status` reports project progress read-only. Publishing Stories as GitHub Issues is done only through `publish-stories`, which must show the exact proposed Issues and get the human's explicit confirmation before anything is created; never create Issues for Stories any other way.
+
+Other rules the Skills rely on: get IDs only from `sdlc allocate-id` / `retire-id`; run `sdlc update-map` then `sdlc validate` after any change; never edit a `map.md`'s generated region or anything under `.sdlc/` by hand.

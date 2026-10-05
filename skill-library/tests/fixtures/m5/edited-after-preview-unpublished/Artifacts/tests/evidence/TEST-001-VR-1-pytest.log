@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.16, pytest-9.1.1, pluggy-1.6.0
+rootdir: /tmp/claude-1000/-home-tom-projects-Augmentia/7ed23ca0-3f6c-4934-ac2a-cd2f20906015/scratchpad/m4/a
+configfile: pyproject.toml
+testpaths: tests
+collected 9 items
+
+tests/test_text.py .........                                             [100%]
+
+============================== 9 passed in 0.01s ===============================
+exit:0

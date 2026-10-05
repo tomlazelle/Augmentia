@@ -22,7 +22,7 @@ Audience: implementers and product reviewers. A Story is one appropriately sized
 ## Front matter rules
 
 - `delivery_status: Not Started` unless a human explicitly establishes another valid state. Never set `Implemented` or `Verified` here; those belong to later implementation and verification Skills. Do not confuse it with document `status`.
-- `covers` is present in every Story and holds **specific, existing requirement IDs only** (e.g. `PR-001-R003`) — never a document ID, never an ID you invented, never an ID `python -m sdlc references` cannot find. Confirm IDs by reading the source documents.
+- `covers` is present in every Story and holds **specific, existing requirement IDs only** (e.g. `PR-001-R003`) — never a document ID, never an ID you invented, never an ID `sdlc references` cannot find. Confirm IDs by reading the source documents.
 - Each owning document of a covered ID must be linked under `### Derived From` with a valid relative link (`- [PR-001 — Title](../PR/PR-001-slug.md)`). `validate` errors otherwise.
 - **Standalone Story:** `covers: []`, and `Derived From` may be `None identified.` (or list a non-requirement source). It is valid: `validate` reports it as a `story-no-coverage` **notice**, not an error, and exits 0. State that to the user. Never create a fake PRD or invent requirement IDs to avoid the notice.
 

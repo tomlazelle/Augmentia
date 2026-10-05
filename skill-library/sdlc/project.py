@@ -27,6 +27,7 @@ DEFAULT_DIRECTORIES = {k: k for k in TOP_DIRS}
 REQUIRED_FIELDS = ("id", "title", "purpose", "status", "created", "updated")
 EVIDENCE_DIR = "evidence"
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+CREDENTIAL_KEY_RE = re.compile(r"token|secret|password|passwd|credential|auth|api[_-]?key", re.I)
 
 
 def find_root(start: Path) -> Path | None:
@@ -75,6 +76,10 @@ def load_config(root: Path) -> tuple[dict | None, list[Diagnostic]]:
                 err("directories values must be unique")
     if "publishing" in data and not isinstance(data["publishing"], dict):
         err("publishing must be a mapping when present")
+    elif isinstance(data.get("publishing"), dict):
+        secret_keys = sorted(k for k in data["publishing"] if CREDENTIAL_KEY_RE.search(str(k)))
+        if secret_keys:
+            err(f"publishing must not hold credentials ({', '.join(secret_keys)}); authenticate through the provider's own tooling")
     unknown = set(data) - {"project_name", "schema_version", "directories", "publishing"}
     if unknown:
         diags.append(Diagnostic("warning", "unknown-config-key", f"unknown keys: {', '.join(sorted(unknown))}", path=rel))

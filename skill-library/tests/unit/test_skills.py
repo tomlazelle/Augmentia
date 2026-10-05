@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SKILLS = {p.name: p for p in sorted((ROOT / "skills").iterdir()) if p.is_dir()}
 CREATING = ["create-brd", "create-prd", "create-stories"]
 PATH_TOKEN = re.compile(r"`((?:references/|\.\./\.\./shared/|\.\./\.\./\.\./shared/)[\w./-]+\.md)`")
-CMD = re.compile(r"`python -m sdlc ([a-z-]+)([^`]*)`")
+CMD = re.compile(r"`sdlc ([a-z-]+)([^`]*)`")
 
 
 def skill_text(name):
@@ -233,7 +233,7 @@ def test_contextual_overlap_review_follows_cli_check_and_precedes_allocation(nam
     review = text.index("Contextual overlap review")
     alloc = text.index("allocate-id --category")
     assert text.index("find-overlaps") < cli < review < alloc
-    assert f"python -m sdlc list --category {cat}" in text and mapfile in text
+    assert f"sdlc list --category {cat}" in text and mapfile in text
     assert "Conceptual overlaps (my judgement, not CLI-scored)" in text
     assert "separately" in text
     assert "Never attach a score, percentage or level" in text and "never invent a similarity value" in text
@@ -384,3 +384,77 @@ def test_test_plan_template_has_no_runs_and_requires_no_evidence(proj):
     assert "## Repository Context" in text and "### Inspected" in text
     assert "## Verification Runs\n\nNone recorded." in text and "### Unresolved Acceptance Behavior" not in text
     assert "## Unresolved Acceptance Behavior (TBD)" in text and "TS-1" in text and "AC-1" in text
+
+
+# --- R3: sdlc-status and publish-stories --------------------------------------------------------
+
+R3 = ["sdlc-status", "publish-stories"]
+
+
+def _skill_text(name):
+    return (SKILLS[name] / "SKILL.md").read_text()
+
+
+def test_r3_skills_and_shared_conventions_present():
+    for name in R3:
+        assert name in SKILLS and (SKILLS[name] / "SKILL.md").is_file()
+    assert (ROOT / "shared" / "publishing-conventions.md").is_file()
+    for name in R3:
+        assert "../../shared/publishing-conventions.md" in _skill_text(name)
+
+
+def test_sdlc_status_is_read_only_and_derives_state_from_files():
+    text = _skill_text("sdlc-status")
+    assert "sdlc status" in text and "Read-only" in text
+    assert "conversation memory" in text and "informational" in text and "not a defect" in text
+    for forbidden in ("sdlc update-map`,", "sdlc allocate-id`,"):
+        assert forbidden not in text.split("## Rules")[0]
+    assert "Never run `init`, `allocate-id`, `retire-id`, `create-dir` or `update-map`" in text
+
+
+def test_publish_stories_enforces_preview_then_explicit_confirmation():
+    text = _skill_text("publish-stories")
+    flow = text.split("## Workflow")[1].split("## Rules")[0]
+    assert flow.index("publish-preview") < flow.index("Ask for explicit confirmation") < flow.index("publish-apply")
+    for required in ("verbatim", "complete body", "not** confirmation", "--confirm-digest", "Never create an Issue yourself",
+                     "never one printed by a refused apply", "No external mutation before a shown preview", "preview-stale",
+                     "Never print or store credentials"):
+        assert required in text, required
+    assert "gh issue create" in text and text.count("gh issue create") == 1  # only mentioned to forbid it
+
+
+def test_publish_stories_forbids_scope_creep_and_authority_leaks():
+    text = _skill_text("publish-stories")
+    for required in ("never changes requirements, acceptance criteria, `status` or `delivery_status`",
+                     "Do not update, close, label or edit existing Issues", "do not import anything from GitHub",
+                     "open or closed Issue says nothing about `delivery_status`", "do not create PRs, branches",
+                     "you have not read it", "gained a `## Publication` record and a new `updated` date, and nothing else"):
+        assert required in text, required
+
+
+def test_publishing_conventions_pin_the_contract():
+    text = (ROOT / "shared" / "publishing-conventions.md").read_text()
+    for required in ("Local Markdown is authoritative", "preview-stale", "## Publication", "PUB-1", "Non-material metadata",
+                     "never matched to a Story by its title", "GH_TOKEN", "published-unrecorded", "unconfirmed"):
+        assert required in text, required
+    assert "publishing:\n  provider: github\n  repository: owner/repository" in text
+
+
+def test_instruction_templates_route_publishing_through_the_skill():
+    for filename in ("AGENTS.md", "CLAUDE.md"):
+        text = (ROOT / "sdlc" / "templates" / filename).read_text()
+        assert "publish-stories" in text and "explicit confirmation" in text and "sdlc-status" in text
+
+
+def test_cli_contract_documents_r3_commands_and_rules():
+    text = (ROOT / "shared" / "cli-contract.md").read_text()
+    for required in ("### `status`", "### `publish-preview", "### `publish-apply", "publication-invalid", "preview-stale",
+                     "confirmation-missing", "SDLC_GH_COMMAND", "publishing-config-missing"):
+        assert required in text, required
+
+
+def test_review_skill_names_the_exact_review_record_heading():
+    """Regression (M6 defect 3): a real run wrote `### RR-1` instead of the contract's `### RV-n`."""
+    text = _skill_text("review-implementation")
+    assert "### RV-<n> — <YYYY-MM-DD>" in text and "RV, not RR" in text
+    assert "### RV-1 — " in (ROOT / "shared" / "technical-conventions.md").read_text()

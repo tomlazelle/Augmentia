@@ -14,7 +14,7 @@ Applies to every authored SDLC document. The CLI (`shared/cli-contract.md`) enfo
 | Research | `RES-NNN` | `Artifacts/research/` | `RES-001-oauth-providers.md` |
 | Test plan/report | `TEST-NNN` | `Artifacts/tests/` | `TEST-001-registration.md` |
 
-- Get IDs only from `python -m sdlc allocate-id`. Never invent or renumber one. IDs are never reused, even after a document is deleted (`retire-id` records the tombstone).
+- Get IDs only from `sdlc allocate-id`. Never invent or renumber one. IDs are never reused, even after a document is deleted (`retire-id` records the tombstone).
 - Filename: `<ID>-<short-kebab-title>.md` (lowercase letters, digits, hyphens).
 - Allocation is monotonic per checkout, not collision-proof across branches; `validate` reports duplicate IDs after a merge.
 

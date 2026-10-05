@@ -1,0 +1,12 @@
+## Project status
+
+**Health:** Validation is OK: 0 errors, 0 warnings, and 0 notices.
+
+**Documents:** No BR, PR, Story, Design, Plan, Research, or Test Plan documents yet.
+
+**Story delivery:** No Stories in any delivery state.
+
+**Traceability:** No gaps, invalid references, or unresolved TBD behavior reported.
+
+**Next:** The project has no SDLC documents yet. You could start with `create-brd`, `create-prd`, or `create-stories`, depending on what you want to define first.
+d`, `create-prd`, or `create-stories`.

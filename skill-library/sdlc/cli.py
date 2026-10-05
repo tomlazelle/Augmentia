@@ -1,4 +1,4 @@
-"""Command-line interface: python -m sdlc <command> [--root DIR] [--json]."""
+"""Command-line interface: sdlc <command> [--root DIR] [--json]."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import ids, init_cmd, maps, query, validate
+from . import __version__, ids, init_cmd, maps, publish, query, status, validate
 from .model import ARTIFACT_SUBDIRS, DOC_CATEGORIES, DOC_STATUSES, Diagnostic, Outcome
 from .project import Project, find_root
 
@@ -23,6 +23,7 @@ def _common() -> argparse.ArgumentParser:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="sdlc", description="Deterministic helper CLI for the SDLC Skill library.")
+    parser.add_argument("--version", action="version", version=f"sdlc {__version__}")
     sub = parser.add_subparsers(dest="command", required=True, metavar="<command>")
     common = _common()
 
@@ -58,6 +59,17 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--title", required=True)
     p.add_argument("--purpose")
     p.add_argument("--covers", nargs="+", default=[], metavar="ID", help="search hint: requirement or document IDs the new document relates to (Story front matter covers is requirement IDs only)")
+
+    sub.add_parser("status", parents=[common], help="read-only progress snapshot: health, inventory, delivery, traceability, attention")
+
+    p = sub.add_parser("publish-preview", parents=[common],
+                       help="render the exact GitHub Issue(s) that would be created for the named Stories (offline; never mutates)")
+    p.add_argument("stories", nargs="*", metavar="STORY-ID", help="Stories to publish (none are selected by default)")
+
+    p = sub.add_parser("publish-apply", parents=[common],
+                       help="create the previewed GitHub Issue(s); refuses unless --confirm-digest matches a fresh preview")
+    p.add_argument("stories", nargs="*", metavar="STORY-ID")
+    p.add_argument("--confirm-digest", metavar="DIGEST", help="the digest shown by publish-preview, supplied only after explicit human confirmation")
 
     sub.add_parser("validate", parents=[common], help="check structure, metadata, IDs, links, maps and traceability")
     return parser
@@ -120,10 +132,72 @@ def _human(command: str, out: Outcome) -> str:
             lines += [f"           - {reason}" for reason in c["reasons"]]
         if r["candidates"]:
             lines.append("Ask the user whether to revise/extend an existing document or create a new one.")
+    elif command == "status" and r:
+        lines += _human_status(r)
+    elif command in ("publish-preview", "publish-apply") and r:
+        lines += _human_publish(command, r)
     elif command == "validate" and r:
         s = r["summary"]
         lines.append(f"{r['documents']} document(s): {s['error']} error(s), {s['warning']} warning(s), {s['notice']} notice(s)")
     return "\n".join(lines)
+
+
+def _human_status(r: dict) -> list[str]:
+    h = r["health"]
+    s = h["summary"]
+    lines = ["# Project status", "", "## Project health",
+             f"- Validation: {'OK' if h['ok'] else 'ERRORS'} — {s['error']} error(s), {s['warning']} warning(s), {s['notice']} notice(s) "
+             f"across {h['documents']} document(s)"]
+    if h["stale_maps"]:
+        lines.append(f"- Stale or missing maps: {', '.join(h['stale_maps'])}")
+    lines += [f"- Broken reference: {b['message']} ({b['path']})" for b in h["broken_references"]]
+    lines += ["", "## Document inventory"]
+    for cat, row in r["inventory"].items():
+        if row["total"]:
+            parts = [f"{n} {name}" for name, n in row["by_status"].items() if n] + ([f"{row['invalid']} invalid"] if row["invalid"] else [])
+            lines.append(f"- {cat}: {row['total']} ({', '.join(parts)})")
+        else:
+            lines.append(f"- {cat}: none")
+    lines += ["", "## Story delivery"]
+    for name, items in r["delivery"].items():
+        lines.append(f"- {name}: {len(items)}" + (f" ({', '.join(i['id'] for i in items)})" if items else ""))
+    t = r["traceability"]
+    lines += ["", "## Traceability",
+              f"- Uncovered PR requirements (notice): {', '.join(t['uncovered_requirements']) or 'none'}",
+              f"- Standalone Stories, covers [] (notice): {', '.join(t['standalone_stories']) or 'none'}",
+              f"- Invalid references: {len(t['invalid_references']) or 'none'}",
+              f"- Unresolved acceptance behavior (TBD): {', '.join(t['unresolved_tbd']) or 'none'}",
+              "", "## Needs attention / next actions"]
+    lines += [f"- [{a['kind']}] {a['id'] or ''} {a['message']}".replace("  ", " ") for a in r["attention"]] or ["- Nothing needs attention."]
+    if r["empty"]:
+        lines += ["", "No documents yet: start with create-brd, create-prd or create-stories."]
+    return lines
+
+
+def _human_publish(command: str, r: dict) -> list[str]:
+    lines = [f"Target: {r['provider']} {r['repository']}   (access is checked only when applying)"]
+    for s in r["stories"]:
+        lines += ["", f"=== {s['id']} — {s['action'].upper()} ==="]
+        if s["action"] == "blocked":
+            lines.append(f"blocked: {', '.join(s['blockers'])}")
+            continue
+        lines += [f"Title: {s['issue_title']}", "Labels: none", "Body:", ""] + [f"    {ln}" for ln in s["issue_body"].rstrip("\n").split("\n")]
+        if s["known_publication"]:
+            k = s["known_publication"]
+            lines.append(f"Known publication: {k['repository']}{k['issue']} {k.get('url') or ''}".rstrip())
+        for o in s.get("other_publications", []):
+            lines.append(f"Also published elsewhere: {o['provider']}:{o['repository']}{o['issue']} (does not block this repository)")
+    lines += ["", f"Will create: {', '.join(r['will_create']) or 'nothing'}"]
+    if r.get("digest"):
+        lines.append(f"Digest: {r['digest']}")
+    if command == "publish-preview":
+        lines.append("Preview only — no external mutation was made. Publish only after explicit human confirmation.")
+    else:
+        for o in r.get("outcomes", []):
+            detail = o.get("url") or o.get("issue") or o.get("reason") or o.get("error") or ""
+            lines.append(f"{o['id']}: {o['outcome']} {detail}".rstrip())
+        lines.append(f"External mutations: {r['mutations']}")
+    return lines
 
 
 def _emit(command: str, out: Outcome, as_json: bool) -> None:
@@ -193,6 +267,12 @@ def run(args) -> Outcome:
         return query.references(project, args.id)
     if args.command == "find-overlaps":
         return query.find_overlaps(project, args.category, args.title, args.purpose, args.covers)
+    if args.command == "status":
+        return status.build_status(project)
+    if args.command == "publish-preview":
+        return publish.build_preview(project, args.stories)
+    if args.command == "publish-apply":
+        return publish.apply_publication(project, args.stories, args.confirm_digest)
     return validate.validate(project)
 
 

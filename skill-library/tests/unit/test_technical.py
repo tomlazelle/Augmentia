@@ -236,3 +236,12 @@ def test_supporting_runs_may_declare_no_criteria(proj):
     assert code == 0, data["diagnostics"]
     add_test(proj, [run_block(1, criteria="none")])  # a run that proves nothing cannot support Verified
     assert "verified-criteria-unproven" in codes(proj, check(proj)[1])
+
+
+def test_verified_story_with_level_two_tbd_heading_still_warns(proj):
+    """Regression (M6 defect 4): the TBD heading is recognised at level 2 as well as level 3."""
+    body = story_body(tbd=0).replace("\n## Implementation Record", "\n## Unresolved Acceptance Behavior (TBD)\n\n- **TBD** — open\n\n## Implementation Record")
+    proj.doc("Stories/US-001-thing.md", "US-001", title="Thing", purpose="Thing story.", body=body, fields={"delivery_status": "Verified"})
+    add_test(proj, [run_block(1)])
+    code, data, _ = check(proj)
+    assert code == 0 and "verified-with-unresolved-tbd" in codes(proj, data, "warning")

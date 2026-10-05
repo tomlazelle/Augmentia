@@ -41,7 +41,7 @@ Nothing skips a step: **only `implement-story` sets `Implemented`; only `verify-
 | Test Plan (and verification log) | `TEST-NNN` | `Artifacts/tests/` | Scenarios per acceptance criterion; the append-only *Verification Runs* |
 | Research (optional) | `RES-NNN` | `Artifacts/research/` | Evidence behind a decision |
 
-- Create the subdirectory on first use with `python -m sdlc create-dir --artifact design|plans|tests|research`. IDs come from `allocate-id`; run the R1 overlap workflow (CLI `find-overlaps`, then the contextual review, then the human's revise/relate/create-new decision) **before** allocating.
+- Create the subdirectory on first use with `sdlc create-dir --artifact design|plans|tests|research`. IDs come from `allocate-id`; run the R1 overlap workflow (CLI `find-overlaps`, then the contextual review, then the human's revise/relate/create-new decision) **before** allocating.
 - Every technical artifact lists its source Story (or Stories) under `### Derived From` with a valid relative link, and cites the covered requirement IDs (e.g. `— serves PR-001-R003`) so `validate` can check them. Designs and plans link the related artifacts under `### Related To`; a Design or Research doc used as background goes under `### Supporting Artifacts`.
 - **Optional means optional.** A Story is actionable without a BRD, PRD, Design, Plan or Research; a Design or Plan is never a prerequisite unless the human or the project says so. A Test Plan is what `verify-story` needs for evidence; if none exists, create one first (`create-test-plan`).
 

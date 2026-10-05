@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from .ledger import LEDGER_REL, Ledger
 from .maps import check_maps, specs
-from . import technical
+from . import publication, technical
 from .markdown import extract_hrefs, mask_region
 from .model import GEN_END, GEN_START, TOP_DIRS, Diagnostic, Outcome, id_sort_key, owner_of
 from .project import Doc, Project, load_config, scan_documents
@@ -194,6 +194,7 @@ def _check_technical(docs: list[Doc]) -> list[Diagnostic]:
         status = doc.meta.get("delivery_status")
         recs, d = technical.check_implementation_records(doc.rel, sid, secs[sid])
         diags += d
+        diags += publication.parse(doc.rel, sid, secs[sid])[1]
         n = ac_count[sid]
         if status in ("Implemented", "Verified") and not recs:
             diags.append(Diagnostic("error", "implementation-record-missing",

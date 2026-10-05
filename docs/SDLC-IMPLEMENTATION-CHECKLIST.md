@@ -100,7 +100,7 @@ Both items were decided after M3 review. They change `sdlc init` (an authorised 
 Evidence: [SDLC-M4-EVIDENCE.md](SDLC-M4-EVIDENCE.md). Fixtures and transcripts: `skill-library/tests/fixtures/m4/`. R2 contract: architecture §15 and `skill-library/shared/technical-conventions.md`.
 
 - [x] R2 contract drafted: `delivery_status` transitions, invalidation, artifact templates, evidence formats, review gating (architecture §15, `technical-conventions.md`)
-- [ ] **Human approval of the NEW R2 semantics** (transition table, invalidation rule incl. amendment of the M3 delivery rule, evidence records, validator enforcement, review gating — evidence doc §2)
+- [x] **Human approval of the NEW R2 semantics** (transition table, invalidation rule incl. amendment of the M3 delivery rule, evidence records, validator enforcement, review gating — evidence doc §2)
 - [x] Shared technical conventions and templates (DES, PLAN, TEST, optional RES) with section catalogs and discovery questions
 - [x] `refine-stories`
 - [x] `create-design` (`DES-NNN`, optional `RES-NNN`)
@@ -120,32 +120,87 @@ Evidence: [SDLC-M4-EVIDENCE.md](SDLC-M4-EVIDENCE.md). Fixtures and transcripts: 
 - [x] Rework after verification supersedes prior evidence without misrepresenting it (`us001-rework-reverified`)
 - [x] Independent entry: Story implemented and verified without BRD, requirement or Design (Codex, `us002-codex-standalone`)
 - [x] Full suite under Python 3.11.16: **390 passed** with `SDLC_TEST_INSTALL=1` (388 passed + 2 opt-in skipped by default; also green on 3.14)
-- [ ] `docs/SDLC-M4-EVIDENCE.md` reviewed by a human
-- [ ] **M4 approved by a human**
+- [x] `docs/SDLC-M4-EVIDENCE.md` reviewed by a human
+- [x] **M4 approved by a human**
 
-**Not exercised live:** RES by a live agent (template/CLI tests only). Deviations and observed issues: evidence §8 and §11.
+**Accepted M4 limitations (human-approved; no mechanisms to be added during M4):**
+1. RES artifacts have CLI/template coverage but have not been exercised by a live agent. A live RES scenario is carried into M6.
+2. Validation verifies evidence structure and currency but does not semantically prove that an executed test exercises the acceptance criterion it references. This is an intentional architectural boundary.
+3. Implementer/verifier agent separation is not required. Verification requires actual execution evidence, not a separate agent identity.
+
+Deviations and observed issues: evidence §8 and §11.
+
+**M4 is human-approved. M1 through M4 are approved.**
 
 **Exit criterion:** A story can go from Ready to Verified through the R2 Skills on a fixture project with accurate `delivery_status`, valid links and passing `validate`; verification results are traceable to real executions.
 
-## M5 — Publishing & Status (R3)
+## M5 — Delivery & Reporting (R3)
 
-- [ ] `sdlc-status` structured report (counts, uncovered requirements, outstanding work, validation problems)
-- [ ] GitHub adapter specification reviewed
-- [ ] `publish-stories` with mandatory preview and explicit confirmation
-- [ ] Local Markdown remains authoritative; no automatic sync (verified)
-- [ ] Publication tested against a non-production target only
+Evidence: [SDLC-M5-EVIDENCE.md](SDLC-M5-EVIDENCE.md). Handoff: [SDLC-M5-DELIVERY-REPORTING-IMPLEMENTATION.md](SDLC-M5-DELIVERY-REPORTING-IMPLEMENTATION.md). Fixtures and transcripts: `skill-library/tests/fixtures/m5/`. R3 contract: architecture §16 and `skill-library/shared/publishing-conventions.md`.
 
-**Exit criterion:** Publication cannot occur without a shown preview and explicit human confirmation; `sdlc-status` output matches the state of a fixture project.
+- [x] R3 contract drafted: `status` command, preview digest / confirmation gate, Publication record, non-material publication, failure table (architecture §16, `publishing-conventions.md`, `cli-contract.md`)
+- [x] **Human approval of the NEW R3 semantics** (architecture §16 items marked NEW; evidence doc §2) — approved in review, conditional on the identity correction below
+- [x] **Review correction:** publication identity and duplicate prevention scoped by Story + provider + repository (same-repository duplicate blocked; other repository allowed with a full preview and confirmation); regression tests added
+- [x] `status` CLI command: read-only; health, inventory (BR/PR/US/DES/PLAN/RES/TEST), five delivery states, traceability, ordered needs-attention list
+- [x] `sdlc-status` Skill: derives state from current files, read-only, coverage notices informational, missing optional artifacts not a defect
+- [x] Minimal publishing config contract (`publishing: {provider: github, repository: owner/name}`); credential-looking keys rejected by `validate`
+- [x] Publication identity documented and implemented as an append-only Markdown `## Publication` section (`PUB-n`); `validate` checks it (`publication-invalid`); non-material (Approved stays Approved)
+- [x] `publish-preview`: offline, zero mutation, faithful title/body/labels/known publication/warnings, content `digest`
+- [x] `publish-apply`: refuses unless the digest matches a fresh preview of current files; read-only provider preflight; creates exactly the previewed content; records only after provider success; per-Story outcomes
+- [x] Narrow GitHub provider boundary (`gh` CLI; no labels/projects/milestones/branches/PRs; credentials never read, stored or printed)
+- [x] `publish-stories` Skill: explicit selection, preview shown verbatim, explicit-confirmation rules, no external mutation otherwise, no sync, no Issue updates
+- [x] Duplicate prevention scoped by Story + provider + repository: a known publication in the configured repository is shown in preview and skipped, a publication elsewhere does not block; Issues never matched by title; unreadable record blocks
+- [x] Failure handling: missing/invalid config, unsupported provider, missing tooling/auth, repository not found, Issues disabled, per-Story failure, partial success, ambiguous provider result, recording failure after success
+- [x] Status acceptance tests (§12 of the handoff, 9 items) and publish acceptance tests (§13, 15 items) pass against the stub GitHub boundary (evidence §4)
+- [x] Claude Code and Codex adapters discover both Skills (`test_r3_skills_are_discoverable_through_each_adapter`); both executed in real sessions (evidence §5)
+- [x] `sdlc-status` run through Claude Code and Codex with an explicit "fix anything stale" bait: report only, repository fingerprint unchanged
+- [x] `publish-stories` through Claude Code (preview; ambiguous reply does not publish; explicit confirmation publishes; duplicate skipped; stale confirmation re-previews) and Codex (preview; ambiguous reply does not publish; explicit confirmation publishes), all against a stub `gh`
+- [x] `AGENTS.md`/`CLAUDE.md` templates route publishing through `publish-stories` (still create-if-missing on `init`)
+- [x] Preserved M1–M4: existing 390 tests unchanged and green
+- [x] Full suite under Python 3.11.16: **493 passed** with `SDLC_TEST_INSTALL=1` (491 passed + 2 opt-in skipped by default; also green on 3.14)
+- [x] GitHub adapter specification reviewed by a human
+- [x] `docs/SDLC-M5-EVIDENCE.md` reviewed by a human
+- [x] **M5 approved by a human**
+
+**Not exercised live:** a real GitHub mutation (no safe test repository was designated; all publication used a stub `gh`). Real `gh` 2.46 was used only to confirm the flag and `--json` field names. Codex was not run for the stale-confirmation and duplicate scenarios. Limitations and observed issues: evidence §6–§8.
+
+**Final M5 regression result:** `SDLC_TEST_INSTALL=1` on Python 3.11.16: **493 passed**. The Story + provider + repository publication identity correction is accepted.
+
+**M5 is human-approved. M1 through M5 are approved.** M6 has not begun; it waits for review of the M6 implementation/release handoff. M6 carry-forwards (including one live GitHub publication to a designated test repository) are preserved below.
+
+**Exit criterion:** `sdlc-status` accurately reports a fixture project without mutation; `publish-stories` produces a faithful GitHub preview; external mutation cannot occur without explicit confirmation; confirmed publication uses the confirmed content and reports accurately; duplicates are prevented; local Markdown stays authoritative; the full 3.11 suite passes; both Skills are discoverable; evidence and checklist are current; limitations are recorded.
 
 ## M6 — End-to-End Validation & Release
 
-- [ ] Full lifecycle walk-through on a fresh repository (init → BRD → PRD → stories → design → plan → implement → test → verify → publish)
-- [ ] Multi-agent install/link verified for each supported agent
-- [ ] Validation after simulated branch merge with duplicate IDs
-- [ ] Confirm no third-party Skill dependency and no UI requirement
-- [ ] `pipx` packaging added and verified
-- [ ] User documentation and install guide
-- [ ] Verify contextual overlap handling through a real Codex session (carried forward from post-M3 hardening): the contextual review is presented separately and unscored after the CLI check, and the revise / relate / create-new decision is put to the human **before** any ID is allocated (ledger unchanged at that point)
-- [ ] Human release sign-off
+Evidence: [SDLC-M6-EVIDENCE.md](SDLC-M6-EVIDENCE.md). Handoff: [SDLC-M6-RELEASE-VALIDATION-IMPLEMENTATION.md](SDLC-M6-RELEASE-VALIDATION-IMPLEMENTATION.md). Release candidate: `sdlc-skill-library 1.0.0rc1`. **M5 is human-approved; the approved baseline is `SDLC_TEST_INSTALL=1`, Python 3.11.16: 493 passed.**
+
+- [x] M5 human approval recorded
+- [x] Package builds successfully (sdist + wheel)
+- [x] `pipx` clean installation succeeds
+- [x] `sdlc` console entry point works (`sdlc-install-claude-code`, `sdlc-install-codex` too)
+- [x] Runtime package data is complete (Skills, shared references, templates, metadata)
+- [x] User installation documentation validated from a clean environment (`skill-library/README.md`)
+- [x] Claude Code installation/discovery validated from the packaged release
+- [x] Codex installation/discovery validated from the packaged release
+- [x] Fresh repository initialized successfully; init idempotent; existing project instructions preserved
+- [x] BRD → PRD → Story chain exercised by agents
+- [x] **Deferred:** real Codex contextual-overlap scenario completed before ID allocation
+- [x] Technical artifact flow exercised (refine, design, plan, test plan)
+- [x] **Deferred:** live-agent RES scenario completed
+- [x] Real implementation produced
+- [x] Implementation review completed
+- [x] Real verification evidence produced; Story reaches Verified correctly
+- [x] `sdlc validate` passes
+- [x] `sdlc-status` accurately reports the final state and is read-only
+- [ ] **Deferred — OPEN:** live GitHub preview shown, exact explicit human authorization obtained, one real Issue created (no repository designated yet; the reply "use local for now" was read as deferral; nothing was created on GitHub)
+- [ ] Publication record validated (live); same-repository duplicate prevention demonstrated without a second Issue
+- [x] Cross-agent release matrix complete (every row new or reused-and-labelled; the real-publication row stays open below)
+- [x] Python 3.11 full suite passes with installation tests enabled — `SDLC_TEST_INSTALL=1`, Python 3.11.16: **530 passed** (M5 baseline 493); default run 522 passed + 8 opt-in skipped; Python 3.14.4: 522 passed + 8 skipped
+- [x] Validation after a simulated branch merge with duplicate IDs (original M6 item)
+- [x] Confirm no third-party Skill dependency and no UI requirement (original M6 item; PyYAML is the only runtime dependency)
+- [x] Documentation walkthrough passes
+- [x] `docs/SDLC-M6-EVIDENCE.md` complete; remaining limitations documented
+- [ ] Release candidate presented for human sign-off (presented with the live GitHub block still open; see evidence §6.4 and §10)
+- [ ] **Human release sign-off** (not self-approved)
 
 **Exit criterion:** The full walk-through completes on each supported agent with a clean `validate`, documentation is reviewed, and a human signs off the release.

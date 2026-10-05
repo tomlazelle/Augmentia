@@ -7,6 +7,6 @@
 - [ ] Undecided behavior is listed under `### Unresolved Acceptance Behavior (TBD)` and Open Questions — not written as a criterion. *(Exception: the user explicitly accepts implementing with it still open.)*
 - [ ] `covers` holds real requirement IDs and each owning document is linked under `### Derived From`; or `covers: []` is a deliberate standalone Story.
 - [ ] Dependencies on other Stories/artifacts are named; known blockers are resolved or accepted by the user.
-- [ ] `python -m sdlc validate` reports no errors.
+- [ ] `sdlc validate` reports no errors.
 
 Not required: a BRD, PRD, Design or Plan. Being Ready says nothing about document `status` (approval is separate).

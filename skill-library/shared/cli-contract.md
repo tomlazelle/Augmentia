@@ -3,16 +3,16 @@
 The `sdlc` CLI is the deterministic helper runtime for every Skill. Skills invoke it through the host agent's shell capability and must not re-implement its algorithms (ID allocation, map generation, overlap search, validation).
 
 ```text
-python -m sdlc <command> [arguments] [--root DIR] [--json]
+sdlc <command> [arguments] [--root DIR] [--json]
 ```
 
-Install from the repository root of the skill library with `pip install -e .` (Python 3.11+, PyYAML). `python -m sdlc --help` and `python -m sdlc <command> --help` list options.
+Install with `pipx install <package>` (Python 3.11+, PyYAML; development: `pip install -e .` from the skill-library checkout). The console command is `sdlc`; `python -m sdlc` is an exact equivalent wherever the package is importable. Skills and templates always say `sdlc`. `sdlc --version`, `sdlc --help` and `sdlc <command> --help` list version and options.
 
 ## Conventions
 
 - **Root.** `--root DIR` names the project root. Without it the root is the nearest ancestor of the current directory that contains `.sdlc/`. `init` falls back to the current directory when no such ancestor exists. Every other command exits `2` if no project is found.
 - **Output.** Human-readable by default (diagnostics of `validate` on stdout; other commands write diagnostics to stderr). With `--json`, exactly one JSON document is written to stdout.
-- **Writes.** Only `init`, `allocate-id`, `retire-id`, `create-dir` and `update-map` write, and only inside the project root. No command contacts external services. The CLI is single-writer: do not run write commands concurrently against one checkout.
+- **Writes.** Only `init`, `allocate-id`, `retire-id`, `create-dir`, `update-map` and `publish-apply` write, and only inside the project root (`publish-apply` writes only the `## Publication` section and `updated` of a published Story). **No command contacts an external service except `publish-apply`**, and only after its confirmation check passes (below); `status` and `publish-preview` are offline and read-only. The CLI is single-writer: do not run write commands concurrently against one checkout.
 - **Dates.** Ledger dates use today's date; the `SDLC_TODAY` environment variable (`YYYY-MM-DD`) overrides it for reproducible runs and tests.
 
 ## Exit codes
@@ -20,8 +20,8 @@ Install from the repository root of the skill library with `pip install -e .` (P
 | Code | Meaning |
 |---|---|
 | `0` | Success. `validate` exits `0` when there are no errors, **even if it reports warnings and coverage notices**. |
-| `1` | The operation could not complete or found structural problems in the project's *state*: `validate` errors; an unknown, retired or already-retired ID; a corrupt ledger; a `map.md` whose generated-region markers are missing (never rewritten). |
-| `2` | Usage or environment error: unknown option/category, malformed ID or title argument, no project found, `--root` is not a project, `update-map` given an unmanaged directory. (argparse usage errors also exit `2`.) |
+| `1` | The operation could not complete or found structural problems in the project's *state*: `validate` errors; a blocked or refused publication; an unknown, retired or already-retired ID; a corrupt ledger; a `map.md` whose generated-region markers are missing (never rewritten). |
+| `2` | Usage or environment error: unknown option/category, a missing or non-Story selection for `publish-*`, malformed ID or title argument, no project found, `--root` is not a project, `update-map` given an unmanaged directory. (argparse usage errors also exit `2`.) |
 
 ## JSON envelope (`--json`)
 
@@ -119,13 +119,30 @@ Checks the whole project. It reads only. Exit `1` if any `error` is found.
 | `verified-no-criteria`, `verified-criteria-unproven` | error | a `Verified` Story has no numbered acceptance criteria, or some criterion lacks a current (non-superseded, latest) `passed` run |
 | `verified-with-unresolved-tbd` | warning | a `Verified` Story still lists `### Unresolved Acceptance Behavior (TBD)` bullets |
 | `ready-without-criteria` | warning | `Ready`, `In Progress` or `Implemented` Story with no numbered acceptance criteria |
+| `publication-invalid` | error | malformed `### PUB-n` entry in a Story's `## Publication` section (heading, duplicate ID, `Provider` not `github`, `Repository` not `owner/name`, `Issue` not `#N`) |
 | `story-no-coverage` | notice | Story with `covers: []` |
 | `requirement-uncovered` | notice | PR requirement that no Story covers (R1 restricts this notice to `PR-` requirements; BR requirements are covered through PRDs) |
 
 The R2 rows above enforce the evidence formats in `technical-conventions.md` §5 and never change exit-code semantics (errors ⇒ `1`). `Artifacts/tests/evidence/` is ignored by the directory scan (verification logs, not documents).
 
+The R3 row `publication-invalid` enforces the Publication record format in `publishing-conventions.md` §6. Credential-looking keys under `publishing` in `.sdlc/config.md` are a `bad-config` error.
+
 Result: `{"summary": {"error","warning","notice"}, "documents"}`. `.sdlc/` is exempt from map and authored-document rules. Coverage notices never affect the exit code.
+
+### `status`
+Read-only progress snapshot built from the same scanners as `list`/`references`/`validate`. Writes nothing and contacts nothing. Exits `0` whenever the report is produced (an unhealthy project is reported in `result.health`, not through the exit code); `2` if no project is found. The human form is the report layout (health, inventory, delivery, traceability, needs attention).
+Result: `{"health": {"ok","summary","documents","errors","warnings","stale_maps","broken_references"}, "inventory": {<BR|PR|US|DES|PLAN|RES|TEST>: {"total","by_status":{Draft,In Review,Approved,Superseded},"invalid"}}, "delivery": {<Not Started|Ready|In Progress|Implemented|Verified>: [{"id","title","status","path"}]}, "traceability": {"uncovered_requirements","standalone_stories","invalid_references","unresolved_tbd"}, "attention": [{"kind","id","message","path"}], "empty"}`. `attention.kind` is one of `validation-error`, `verification-problem`, `unresolved-acceptance`, `awaiting-verification`, `in-progress`, `ready-to-implement`, `in-review`, in that priority order. Coverage notices (uncovered PR requirements, standalone Stories) stay informational and never produce attention items; absent DES/PLAN/RES/TEST documents are not defects.
+
+### `publish-preview STORY-ID [STORY-ID ...]`
+**Offline and read-only** (zero external calls, zero writes). Renders the exact GitHub Issue for each named Story and a `digest` over it. Nothing is selected by default: no IDs is a usage error (`no-selection`, exit `2`); a non-Story ID is `bad-selection` (`2`). Requires `.sdlc/config.md` `publishing: {provider: github, repository: owner/name}`; otherwise `publishing-config-missing`, `publishing-unsupported-provider` or `publishing-config-invalid` (exit `1`, nothing else done). Exit `1` also when any selected Story is `blocked`: it does not exist (`story-not-found`), has validation errors of its own (`story-invalid`), or its Publication record is unreadable. Warnings never block: `story-not-approved`, `unresolved-acceptance`, `no-acceptance-criteria`, `relative-links`; notices: `story-no-coverage` (a standalone Story is publishable), `already-published`. A project-wide `project-has-errors` warning is given when unrelated validation errors exist.
+Result: `{"provider","repository","stories": [{"id","path","title","issue_title","issue_body","labels": [],"known_publication"|null,"action": "create"|"skip"|"blocked","blockers","warnings"}], "will_create","blocked","can_apply","digest","mutations": 0,"access_checked": false}`. `digest` is `sha256:` over the canonical JSON of provider, repository and, per Story sorted by ID, `{id, action, title, body, known}`; it is independent of selection order and changes with any change to Story content, selection, repository or publication state. Issue format: `publishing-conventions.md` §4.
+
+### `publish-apply STORY-ID [STORY-ID ...] --confirm-digest DIGEST`
+The only command that contacts an external service and the only one that may create Issues. Recomputes the preview from the **current** files and proceeds only when `DIGEST` equals its digest. Otherwise it creates nothing: `confirmation-missing` (no digest) or `preview-stale` (mismatch), exit `1`; the refusal result never contains the current digest or Issue bodies. If any Story is `blocked`, nothing is published. Before creating anything it runs a read-only preflight through the provider (`gh auth status`, `gh repo view`): `provider-unavailable`, `provider-auth`, `repository-not-found`, `issues-disabled` or `provider-failed` abort with no mutation. It then creates one Issue per `create` Story with exactly the previewed title and body (no labels, assignees, milestones or projects) and, **only after the provider reports success**, appends the Publication record to that Story. Stories with a known publication **in the configured repository** (identity = Story + provider + repository) are `skipped`, never recreated; a publication in another repository does not block (preview notice `published-elsewhere`).
+Per-Story `outcome`: `published` (`issue`, `url`, `record`), `skipped`, `failed` (provider error; nothing recorded; other Stories are still attempted), `unconfirmed` (provider exited 0 without an Issue URL; code `provider-ambiguous`; later Stories `not-attempted`), `published-unrecorded` (Issue created but the local record could not be written; error `record-failed` flagged `INCONSISTENCY`; later Stories `not-attempted`; never retried), `not-attempted`. Exit `0` only if every created/skipped outcome succeeded; `1` otherwise.
+Result: the preview fields plus `"mutations"` (Issues actually created), `"published"`, `"outcomes"`.
+Provider boundary: `sdlc/github_provider.py` shells out to `gh` (`SDLC_GH_COMMAND` overrides the executable; tests use a stub). Authentication is whatever `gh` already has (`gh auth login`, `GH_TOKEN`, `GITHUB_TOKEN`); the CLI never reads, stores or prints a credential, and scrubs token-shaped strings from provider output.
 
 ## Configuration schema (`.sdlc/config.md`)
 
-YAML front matter only: `project_name` (non-empty string), `schema_version` (`1`), `directories` (mapping of exactly `BR`, `PR`, `Stories`, `Artifacts` to distinct single-segment folder names; default: each maps to itself), optional `publishing` (mapping; defaults for R3 publishing).
+YAML front matter only: `project_name` (non-empty string), `schema_version` (`1`), `directories` (mapping of exactly `BR`, `PR`, `Stories`, `Artifacts` to distinct single-segment folder names; default: each maps to itself), optional `publishing` (mapping). R3 reads exactly `provider: github` and `repository: owner/name` from it; any key that looks like a credential (`token`, `secret`, `password`, `auth`, `api_key`, …) is a `bad-config` error.

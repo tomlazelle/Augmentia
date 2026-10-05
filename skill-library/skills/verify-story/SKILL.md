@@ -7,11 +7,11 @@ description: Verify an Implemented Story against its acceptance criteria by runn
 
 Decides from **actual results** whether an `Implemented` Story is `Verified`. Audience: the human who will rely on the result.
 
-Method and rules: `../../shared/technical-conventions.md` (read it, especially §2, §3, §5, §6). CLI: `python -m sdlc` (`../../shared/cli-contract.md`); if it fails with `No module named sdlc`, tell the user to install the library and stop. Commands run from the project root.
+Method and rules: `../../shared/technical-conventions.md` (read it, especially §2, §3, §5, §6). CLI: `sdlc` (`../../shared/cli-contract.md`); if it fails with `command not found: sdlc`, tell the user to install the library and stop. Commands run from the project root.
 
 ## Workflow
 
-1. **Select and check prerequisites; stop if unmet.** Read the Story **in full** (number its decided acceptance criteria `AC-1…`; note any `### Unresolved Acceptance Behavior (TBD)`), its Implementation Record, and the Test Plan(s) (`python -m sdlc references <US-ID>`; open them).
+1. **Select and check prerequisites; stop if unmet.** Read the Story **in full** (number its decided acceptance criteria `AC-1…`; note any `### Unresolved Acceptance Behavior (TBD)`), its Implementation Record, and the Test Plan(s) (`sdlc references <US-ID>`; open them).
    - `delivery_status` must be `Implemented` (or `Verified`, for re-verification). Otherwise report what is missing (implementation not done → `implement-story`) and stop without changing state.
    - There must be a Test Plan for the Story. If none exists, offer `create-test-plan` first (or create one in this session with that Skill's rules); do not verify against nothing.
    - If the Story's latest `## Review Record` verdict is `requires-rework` or `blocked`, do not set `Verified` unless a newer `complete` review exists or the user explicitly waives it (record the waiver in the Review Record).
@@ -23,7 +23,7 @@ Method and rules: `../../shared/technical-conventions.md` (read it, especially �
    - If `Verified` and a re-verification fails or an evidence gap appears, demote to `Implemented` and say why.
    - Unresolved TBD behavior is **not** verified and is never marked passed: report it, and set `Verified` for the decided criteria only if the user explicitly accepts that residual (state it in the report).
    - Failures mean rework: report them and suggest `implement-story`. Do not fix code here.
-6. **Validate.** Run `python -m sdlc update-map`, then `python -m sdlc validate`. `validate` errors when `Verified` lacks current passed evidence for every criterion; if you set `Verified`, it must report no such error. Report **errors, warnings and coverage notices separately**; fix record-format errors you caused.
+6. **Validate.** Run `sdlc update-map`, then `sdlc validate`. `validate` errors when `Verified` lacks current passed evidence for every criterion; if you set `Verified`, it must report no such error. Report **errors, warnings and coverage notices separately**; fix record-format errors you caused.
 7. **Report.** For every criterion: its latest result and the run (`VR-n`) that supports it; list failed, blocked, not-run and unresolved items and the residual risk; state the delivery transition you made (or that none was made) and the validate summary.
 
 ## Rules

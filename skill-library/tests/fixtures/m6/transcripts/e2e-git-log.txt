@@ -1,0 +1,14 @@
+2e3bf41 MANUAL: update-map after human approval; publishing config (stub target acme/widgets for agent behaviour runs)
+76bd974 MANUAL (human): approve US-001
+327d30c verified (agent)
+1a42e8f implemented + reviewed (agents)
+bf9acea MANUAL: regenerate AGENTS.md/CLAUDE.md from the final release candidate (initialised with an earlier build)
+233c6a9 TEST-001 (agent)
+8e4bee9 PLAN-001 (agent)
+eeda323 RES-001, DES-001 (agent)
+bbc931d US-001 refined/Ready (agent+human declaration)
+23454e5 US-001 (agent)
+e2a94b4 PRD-001 (agent)
+3096cf5 BRD-001 (agent)
+8eca5c6 sdlc init
+3cd6a4f tasklog seed (hand-authored)

@@ -32,7 +32,7 @@ List only expectations the user established or that follow directly from a state
 
 ## Source handling
 
-- **With a BRD:** list the BRD under `### Derived From` as `- [BR-001 — Title](../BR/BR-001-slug.md)` (relative link; `python -m sdlc list --category BR` finds candidates). Product requirements should serve the BRD's needs, but do not restate the BRD, and do not create business requirements.
+- **With a BRD:** list the BRD under `### Derived From` as `- [BR-001 — Title](../BR/BR-001-slug.md)` (relative link; `sdlc list --category BR` finds candidates). Product requirements should serve the BRD's needs, but do not restate the BRD, and do not create business requirements.
 - **Without a BRD:** leave `Derived From` as `None identified.` and proceed. Never create a BRD or a placeholder upstream document.
 - To cite the specific business requirement a product requirement serves, mention the ID inside the sentence or the reference item (for example `- [BR-001 — Title](../BR/…) — serves BR-001-R002`); `validate` checks such IDs exist.
 

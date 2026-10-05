@@ -1,4 +1,4 @@
-"""Shared symlink installer used by the thin per-agent adapters.
+"""Shared symlink installer used by the thin per-agent adapters (`sdlc-install-claude-code`, `sdlc-install-codex`).
 
 Skills are never copied: each `skills/<name>` directory is symlinked into the agent's
 skill-discovery directory, so the central library remains the only source of Skill text.
@@ -10,8 +10,9 @@ import argparse
 import sys
 from pathlib import Path
 
-LIBRARY = Path(__file__).resolve().parents[1]
-SKILLS = LIBRARY / "skills"
+from .resources import skills_dir
+
+SKILLS = skills_dir()
 
 
 def available_skills() -> list[str]:
@@ -56,9 +57,9 @@ def uninstall(target: Path, names: list[str]) -> list[tuple[str, str]]:
     return results
 
 
-def run(agent: str, user_dir: Path, project_rel: str, argv: list[str] | None = None) -> int:
+def run(agent: str, user_dir: Path, project_rel: str, argv: list[str] | None = None, prog: str | None = None) -> int:
     parser = argparse.ArgumentParser(
-        prog=f"install/{agent}.py",
+        prog=prog or f"install/{agent}.py",
         description=f"Link the central SDLC Skills into {agent}'s skill discovery directory (symlinks, no copies).")
     parser.add_argument("--scope", choices=["user", "project"], default="user",
                         help=f"user: {user_dir}; project: <project-dir>/{project_rel} (default: user)")
@@ -84,3 +85,11 @@ def run(agent: str, user_dir: Path, project_rel: str, argv: list[str] | None = N
     for name, state in results:
         print(f"{state:<10} {target / name}")
     return 1 if any(state == "conflict" for _, state in results) else 0
+
+
+def claude_code_main(argv: list[str] | None = None) -> int:
+    return run("claude-code", Path.home() / ".claude" / "skills", ".claude/skills", argv, prog="sdlc-install-claude-code")
+
+
+def codex_main(argv: list[str] | None = None) -> int:
+    return run("codex", Path.home() / ".agents" / "skills", ".agents/skills", argv, prog="sdlc-install-codex")

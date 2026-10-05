@@ -6,7 +6,7 @@ How every creating Skill (`create-brd`, `create-prd`, `create-stories`) question
 
 - **From a one-sentence idea:** restate it in your own words, list what you can already say, and go straight to questions.
 - **From an existing document or supplied material:** read it (and the documents it references) *first*. Extract facts, then ask only about what is missing, contradictory or undecided.
-- Read the root `map.md`, the target directory's `map.md`, and run `python -m sdlc list` / `references <ID>` before asking anything the project may already answer.
+- Read the root `map.md`, the target directory's `map.md`, and run `sdlc list` / `references <ID>` before asking anything the project may already answer.
 - **Infer only what is grounded** in project material or the user's words. If you infer something, label it *Assumption* and show its source. Never turn a guess into a stated fact.
 
 ## 2. Classify what you know
@@ -75,4 +75,4 @@ You now have enough for a **Draft**: present it with the assumption "reminder ti
 - Write files before the user has seen and accepted a draft.
 - Move from one question round to the next without the recap.
 - Present an unresolved outcome as a verifiable acceptance criterion (see each Skill's `section-catalog.md`): unknown stays `TBD`.
-- Perform ID allocation, overlap scoring, map generation or validation yourself: those are `python -m sdlc` commands (`cli-contract.md`).
+- Perform ID allocation, overlap scoring, map generation or validation yourself: those are `sdlc` commands (`cli-contract.md`).

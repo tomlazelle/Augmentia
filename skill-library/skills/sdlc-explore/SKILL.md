@@ -5,15 +5,15 @@ description: Interactively navigate and summarize the project's SDLC Markdown do
 
 # sdlc-explore
 
-Answers navigation and context questions about an initialized SDLC project. **Read-only:** never create, edit, allocate, retire or regenerate anything. (For a structured project-wide progress report use `sdlc-status`, released later.)
+Answers navigation and context questions about an initialized SDLC project. **Read-only:** never create, edit, allocate, retire or regenerate anything. (For a structured project-wide progress report use `sdlc-status`.)
 
-CLI: `python -m sdlc` (contract: `../../shared/cli-contract.md`). If the project is not initialized (`no .sdlc/` error), suggest `sdlc-init` and stop.
+CLI: `sdlc` (contract: `../../shared/cli-contract.md`). If the project is not initialized (`no .sdlc/` error), suggest `sdlc-init` and stop.
 
 ## Steps
 
 1. **Start from the maps.** Read the root `map.md`, then the `map.md` of the directory relevant to the question.
-2. **Enumerate with the CLI, not by guessing.** `python -m sdlc list [--category BR|PR|US|DES|PLAN|RES|TEST] [--status Draft|"In Review"|Approved|Superseded]` lists documents (add `--json` when you need to process the output).
-3. **Follow the links.** `python -m sdlc references <ID>` shows what a document or requirement (`PR-001-R003`) points to and what points at it, including Stories that `Covers` a requirement. Then read the actual documents involved.
+2. **Enumerate with the CLI, not by guessing.** `sdlc list [--category BR|PR|US|DES|PLAN|RES|TEST] [--status Draft|"In Review"|Approved|Superseded]` lists documents (add `--json` when you need to process the output).
+3. **Follow the links.** `sdlc references <ID>` shows what a document or requirement (`PR-001-R003`) points to and what points at it, including Stories that `Covers` a requirement. Then read the actual documents involved.
 4. **Answer from the documents.** Cite document IDs and give relative Markdown links. Separate what the documents state from what is missing or unknown; do not fill gaps with assumptions, and do not invent approvals or statuses.
 5. **Flag trust problems.** If a map looks out of date or a link is broken, say so and suggest `sdlc-validate`; documents are authoritative over maps.
 

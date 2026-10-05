@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.16, pytest-9.1.1, pluggy-1.6.0 -- /tmp/claude-1000/-home-tom-projects-Augmentia/d2596273-3fb3-46eb-b5c7-44721945db25/scratchpad/e2e/tasklog/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /tmp/claude-1000/-home-tom-projects-Augmentia/d2596273-3fb3-46eb-b5c7-44721945db25/scratchpad/e2e/tasklog
+configfile: pyproject.toml
+testpaths: tests
+collecting ... collected 12 items
+
+tests/test_store.py::test_add_and_list_open PASSED                       [  8%]
+tests/test_store.py::test_complete_removes_from_open PASSED              [ 16%]
+tests/test_store.py::test_complete_unknown_raises PASSED                 [ 25%]
+tests/test_store.py::test_due_date_stored_when_supplied_absent_otherwise PASSED [ 33%]
+tests/test_store.py::test_open_task_past_due_is_included PASSED          [ 41%]
+tests/test_store.py::test_undated_and_completed_tasks_are_excluded PASSED [ 50%]
+tests/test_store.py::test_today_and_future_due_dates_are_excluded PASSED [ 58%]
+tests/test_store.py::test_ordering_earliest_due_date_first_title_breaks_ties PASSED [ 66%]
+tests/test_store.py::test_injected_reference_date_governs_overdue_status PASSED [ 75%]
+tests/test_store.py::test_default_reference_date_is_system_date PASSED   [ 83%]
+tests/test_store.py::test_due_date_exactly_one_day_before_reference_is_included PASSED [ 91%]
+tests/test_store.py::test_empty_store_returns_empty_list PASSED          [100%]
+
+============================== 12 passed in 0.01s ==============================
+exit:0

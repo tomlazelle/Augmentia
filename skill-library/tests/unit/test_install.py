@@ -72,3 +72,14 @@ def test_uninstall_removes_only_our_links(adapter, parts, tmp_path):
 
 def test_unknown_skill_is_usage_error(tmp_path):
     assert run("codex", "--skill", "nope", home=tmp_path).returncode == 2
+
+
+@pytest.mark.parametrize("adapter,parts", ADAPTERS.items())
+def test_r3_skills_are_discoverable_through_each_adapter(adapter, parts, tmp_path):
+    assert run(adapter, home=tmp_path).returncode == 0
+    base = tmp_path.joinpath(*parts)
+    for name in ("sdlc-status", "publish-stories"):
+        link = base / name
+        assert link.is_symlink() and (link / "SKILL.md").is_file()
+        assert (link / "SKILL.md").read_text().startswith(f"---\nname: {name}\n")
+    assert len(SKILLS) == 15

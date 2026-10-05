@@ -1,0 +1,10 @@
+The project is initialized but empty — zero documents of any kind (no BRs, PRDs, Stories, Designs, Plans, Research, or Test Plans), and no validation errors or warnings.
+
+**Status:** Clean slate. The `.sdlc/` structure exists but nothing has been authored yet.
+
+**Next actions** (your call which to start with):
+- `create-brd` — draft a Business Requirements Document if you're starting from a business problem
+- `create-prd` — draft a Product Requirements Document (works with or without a BRD)
+- `create-stories` — write standalone Stories directly if you already know the scope and don't need BR/PR docs first
+
+Let me know which you'd like to start with.

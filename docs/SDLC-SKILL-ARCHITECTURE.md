@@ -261,7 +261,7 @@ Invoked as `python -m sdlc <command> [--root <project-root>] [--json]`, run by S
 | `find-overlaps --category <c> --title <t> [--purpose <p>] [--covers <ID>...]` | Ranked overlap candidates (§7). |
 | `validate` | Check structure, front matter, ID/filename agreement, duplicate and retired IDs, links, `covers`, stale maps, missing maps. |
 
-Contract: human-readable output by default and stable JSON with `--json`; exit code `0` success/no errors, `1` validation problems found, `2` usage or environment error. Commands other than `validate` and read-only queries write only files within the project root. The CLI never contacts external services. `sdlc-status` and publishing adapters (R3) build on `list`/`references`/`validate` and are specified in M5.
+Contract: human-readable output by default and stable JSON with `--json`; exit code `0` success/no errors, `1` validation problems found, `2` usage or environment error. Commands other than `validate` and read-only queries write only files within the project root. The CLI contacts an external service in exactly one place: `publish-apply` (R3, §16), and only after a preview-digest confirmation check; every other command, including `status` and `publish-preview`, is offline. `sdlc-status` and publishing (R3) build on `list`/`references`/`validate` and are specified in §16.
 
 ## 10. First-party Skill catalog and release plan
 
@@ -366,9 +366,9 @@ Deferred (not part of R1):
 - Jira publishing.
 
 
-## 15. R2 technical contract (M4 amendments — awaiting human approval)
+## 15. R2 technical contract (M4 amendments — human-approved)
 
-Added while starting M4; nothing in R1 behavior is removed. Items marked **NEW** are materially new semantics that need human approval (the M4 handoff requires it). Operational detail and record formats are in `skill-library/shared/technical-conventions.md`.
+Added while starting M4; nothing in R1 behavior is removed. Items marked **NEW** were materially new semantics; all were approved with M4. Operational detail and record formats are in `skill-library/shared/technical-conventions.md`.
 
 1. **Two states stay separate.** Document `status` and Story `delivery_status` never substitute for each other (§4.3 unchanged).
 2. **NEW — Transition table.** Ready is set only on the human's explicit declaration; `implement-story` sets In Progress and Implemented (and pause/rework transitions); `verify-story` sets Verified (and demotes Verified → Implemented); no other Skill sets Implemented or Verified; unmet prerequisites mean stop and report, never set.
@@ -378,3 +378,18 @@ Added while starting M4; nothing in R1 behavior is removed. Items marked **NEW**
 6. **NEW — Review gating.** Reviews are read-only and advisory; only a *latest* `requires-rework`/`blocked` verdict blocks `verify-story` from setting Verified until re-reviewed or explicitly waived by the human. Enforced by the Skill, not the CLI.
 7. **Technical artifacts.** Templates and catalogs for `DES`, `PLAN`, `TEST` and optional `RES` live with their Skills; each links its source Stories under `Derived From`. None is a prerequisite for a Story. `Artifacts/tests/evidence/` may hold verification logs; the CLI ignores it.
 8. **Instruction templates.** `AGENTS.md`/`CLAUDE.md` (create-if-missing on `init`) now also route technical artifacts and delivery-state changes to the R2 Skills.
+
+## 16. R3 delivery and reporting contract (M5)
+
+Authority order: this document, then `SDLC-IMPLEMENTATION-CHECKLIST.md`, then the M5 handoff. Operational detail, record formats and the failure table are in `skill-library/shared/publishing-conventions.md`; command contracts are in `shared/cli-contract.md`. Nothing in R1/R2 behavior is removed. Items marked **NEW** are new semantics awaiting human review with M5.
+
+1. **Local Markdown stays authoritative.** GitHub Issues are a publication target only. There is no import, no bidirectional sync, no automatic update or closure, and local completion is never inferred from an Issue. GitHub Issues is the only target (no Jira, Projects, labels, milestones, branches, PRs).
+2. **NEW — `status` CLI command (justified CLI extension).** `sdlc-status` needs deterministic counts and attention ordering, so the aggregation lives in a read-only `status` command built on the existing scanners and validator rather than in prompt text. It writes and contacts nothing and exits `0` whenever it produces a report. `sdlc-status` presents it; it differs from `sdlc-explore` (interactive navigation) by being a repeatable snapshot.
+3. **NEW — Preview/confirm gate enforced in the CLI.** `publish-preview` is offline and returns a content `digest`. `publish-apply` creates Issues only if `--confirm-digest` equals the digest of a fresh preview of the current files, so any change after the human saw the preview invalidates the confirmation. The Skill owns showing the preview and obtaining an unambiguous confirmation; the CLI makes "confirmation of different content" impossible, and a refusal never reveals the current digest. This amends §9's "the CLI never contacts external services": `publish-apply` is the single exception.
+4. **NEW — Publication identity as Markdown.** A published Story carries an append-only `## Publication` section of `### PUB-n — date` entries (`Provider`, `Repository`, `Issue #N`, optional `URL`). It is the only duplicate-prevention state (no hidden database); Issues are never matched by title. Identity is **Story + provider + repository**: a Story already published to the configured repository is skipped, while a record for a different repository does not block publishing to this one (the full preview and confirmation still apply). `validate` checks the format (`publication-invalid`); an unreadable record blocks publication rather than risk a duplicate.
+5. **NEW — Publication records are non-material.** Like Implementation, Verification and Review records, appending a Publication entry never resets an Approved Story to In Review and never changes `status`, `delivery_status`, `covers`, requirements or acceptance criteria; only `updated` is set. Publishing is not an approval or delivery event.
+6. **Configuration.** `.sdlc/config.md` `publishing: {provider: github, repository: owner/name}` (§14 default). No credentials in project files: authentication is `gh`'s own login or `GH_TOKEN`/`GITHUB_TOKEN`; `validate` rejects credential-looking keys.
+7. **Provider boundary.** `sdlc/github_provider.py` is the only code that talks to GitHub (via `gh`): a read-only access preflight and one Issue creation. No plugin framework. Tests use a stub `gh` (`SDLC_GH_COMMAND`).
+8. **Issue content.** Title `[US-001] <title>`; body = authority notice, purpose, covers, related IDs, then the Story text verbatim (TBDs included), omitting only local/operational sections (H1, References, Implementation/Review/Publication records).
+9. **Failures are never success.** Config/auth/repository problems abort before any creation; per-Story failures are recorded as failures and nothing is recorded for them; an ambiguous provider result or a failed local record stops the run and is reported prominently without a blind retry.
+
