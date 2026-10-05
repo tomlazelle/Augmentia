@@ -1,6 +1,6 @@
 # M6 Evidence — End-to-End Validation & Release
 
-Review material for the final M6 human gate. **This document does not declare release approval.** One required item, the real GitHub publication, has **not** been executed (§6.4); the release candidate is therefore *not yet complete* against the handoff checklist (§11).
+Review material for the final M6 human gate. **M6 was approved by the human reviewer and `sdlc-skill-library 1.0.0rc1` was approved for release (recorded in the checklist).** All handoff checklist items now have evidence, including the one real GitHub publication (§6.4, executed after your explicit authorization of the exact preview).
 
 ## 1. Environment
 
@@ -13,7 +13,7 @@ Review material for the final M6 human gate. **This document does not declare re
 | Package | `sdlc-skill-library` **1.0.0rc1**, built from `skill-library/` |
 | Claude Code | 2.1.283 |
 | Codex | codex-cli 0.159.3 |
-| GitHub CLI | gh 2.46.0 — **not used to create anything**; used for `gh auth status` (exit code), `gh issue create --help`, `gh repo view --json` field listing (M5), and one read-only `gh repo list` to offer you candidate test repositories (§6.4) |
+| GitHub CLI | gh 2.46.0 — used for read-only checks (`gh auth status` exit code, `gh issue create --help`, `gh repo view`, `gh repo list`, `gh issue list/view`) and, **once**, by `sdlc publish-apply` to create the single live Issue (§6.4) |
 | Other runtime dependency | PyYAML only |
 
 ## 2. Packaging and install evidence
@@ -46,11 +46,11 @@ Release smoke from the isolated install (automated: `test_release_smoke_sequence
 
 | Command (in `skill-library/`) | Result |
 |---|---|
-| `SDLC_TEST_INSTALL=1 <python3.11.16> -m pytest -q` | **530 passed** (M5 approved baseline: 493) |
-| `<python3.11.16> -m pytest -q` | 522 passed, 8 skipped (the opt-in install/packaging tests) |
-| `python3 -m pytest -q` (Python 3.14.4) | 522 passed, 8 skipped |
+| `SDLC_TEST_INSTALL=1 <python3.11.16> -m pytest -q` | **532 passed** (final; M5 approved baseline: 493) |
+| `<python3.11.16> -m pytest -q` | 524 passed, 8 skipped (the opt-in install/packaging tests) |
+| `python3 -m pytest -q` (Python 3.14.4) | 524 passed, 8 skipped |
 
-37 new tests, none replacing an M1–M5 test: `test_packaging.py` (13: version, console scripts, dependency/baseline, library root, build hook, `python -m sdlc` regression, wheel contents, installed entry point, smoke sequence, adapters, uninstall/conflict), `test_readme.py` (6: every README command/flag/Skill/path/config block matches the released CLI and generated output), `test_m6_fixtures.py` (15), plus one regression test each in `test_skills.py`, `test_status.py` and `test_technical.py`. Stub/live distinction: no automated test contacts GitHub; all publishing tests use the stub `gh`.
+The count was 530 before the live publication; the final publication work added 2 tests (live-publication consistency and the authorization-boundary transcript) and no runtime code, so the complete suite was re-run and **532 is the final result**. 39 new tests since M5, none replacing an M1–M5 test: `test_packaging.py` (13: version, console scripts, dependency/baseline, library root, build hook, `python -m sdlc` regression, wheel contents, installed entry point, smoke sequence, adapters, uninstall/conflict), `test_readme.py` (6: every README command/flag/Skill/path/config block matches the released CLI and generated output), `test_m6_fixtures.py` (17), plus one regression test each in `test_skills.py`, `test_status.py` and `test_technical.py`. Stub/live distinction: no automated test contacts GitHub; all publishing tests use the stub `gh`.
 
 ## 4. Fresh-repository walkthrough
 
@@ -75,6 +75,7 @@ Repository `tasklog` created from scratch for M6 (**not** seeded from an M1–M5
 | 15 | `sdlc-status` on the final state, both agents, prompted to "fix anything stale"; read-only (fingerprints identical) | Claude, Codex | `04-status.md`; `test_status_reports_the_final_state_…` |
 | 16 | Project instructions: human approves US-001 (manual edit + `update-map`); each agent is asked to edit the Approved Story directly, bypassing Skills | Claude, Codex | `05-project-instructions.md` (Claude declined citing CLAUDE.md; Codex followed AGENTS.md: refine-stories, In Review, Ready, VR superseded; diff in `ins-4-diff.patch`, then discarded by the maintainer) |
 | 17 | `publish-stories` preview and confirmation behavior with a **stub** target `acme/widgets`: preview shown verbatim, "Looks fine I guess…" / "sounds fine, go for whatever you think is best" not accepted as confirmation, zero `gh` calls | Claude, Codex | `06-publish-behaviour-stub.md` |
+| 19 | **Live GitHub publication** of US-001 → `tomlazelle/UsedForPractice#1`, after explicit authorization of the exact preview (§6.4) | maintainer / human | `09-live-github-publication.md`; `live-publication/` |
 | 18 | Branch merge with duplicate IDs (real git merge; `validate` → 2× `duplicate-id`, exit 1) | maintainer | `08-branch-merge-duplicate-ids.md` |
 
 **Manual interventions and hand-authored steps (all disclosed in the transcripts):** seed code and persona answers; `sdlc init` run by hand; `AGENTS.md`/`CLAUDE.md` deleted and regenerated by `sdlc init` after the first `implement-story` attempt stopped (the project had been initialized with an earlier build whose template still said `python -m sdlc`); `status: Approved` set on US-001 by hand followed by `sdlc update-map`; `git checkout` to discard the agent edit in step 16 (diff retained); the publishing config block added by hand; a `git commit` between phases to give each step a clean fingerprint baseline.
@@ -96,8 +97,21 @@ Codex (create-design) created `RES-001` for a real decision question (how `Task`
 ### 6.3 Clean-repository end-to-end walkthrough — **CLOSED** (see §4 for disclosures)
 Both agents took part at meaningful points (Claude: BRD, PRD, refine, test plan, implement, verify; Codex: Stories, overlap, research/design, plan, review). The live-publication step of the handoff walkthrough is the open item below.
 
-### 6.4 Real GitHub publication — **NOT EXECUTED (open)**
-When asked to designate a test repository, you answered "use local for now". I interpreted that as deferring the live step: I did not choose a repository (none of the account's repositories is evidently a test target), did not show a live preview, did not ask for the per-publication authorization, and **created no Issue**. The only GitHub interaction in M6 was one read-only `gh repo list` to offer candidates. To close it: you designate a repository; I generate the live `publish-stories` preview for it; you explicitly authorize that exact publication; then I publish, verify the `PUB-n` record, run `validate`, and re-run the preview to show same-repository skip (no second Issue). Everything it depends on (preview, confirmation gate, record, duplicate skip, failure handling) is covered by M5's stub-level tests and both agents' preview/ambiguous-reply behavior above; what remains unproven is only that a real GitHub repository accepts the Issue (permissions, scopes, rate limits).
+### 6.4 Real GitHub publication — **CLOSED**
+
+| Item | Result |
+|---|---|
+| Target repository | `tomlazelle/UsedForPractice` (https://github.com/tomlazelle/UsedForPractice), designated by you; read-only check: **public**, Issues enabled, not archived, no existing Issues |
+| Published Story | `US-001` ("List overdue tasks", `status: Approved`, `delivery_status: Verified`) from the fresh `tasklog` walkthrough repository |
+| GitHub Issue | **#1** — https://github.com/tomlazelle/UsedForPractice/issues/1 — `[US-001] List overdue tasks`, no labels, state OPEN, created 2026-10-05T20:15:19Z |
+| Exact preview authorized before publication | **Yes.** Sequence: (1) you answered "use local for now" (read as deferral; nothing created); (2) you designated `tomlazelle/Augmentia`; I showed its full preview and made **no** publication; (3) you asked "What do you want to do exactly?" and I explained and waited; (4) you re-designated `UsedForPractice` ("You can publish here …"); I did **not** treat that as authorization: I checked the repo, regenerated and showed the preview for it (digest `sha256:befd69bfd947b43bd85d4cc7e4a1c133e5c0a3bde1b822fdf2f6ab36dd5f158b`; body byte-identical to the one already shown, verified by `diff`) and asked you to confirm that specific preview; (5) you replied "do it", and only then I ran `sdlc publish-apply US-001 --confirm-digest sha256:befd69bf…`. Result: `US-001: published …/issues/1`, `External mutations: 1`. |
+| Issue content | Read back with `gh issue view 1 --repo tomlazelle/UsedForPractice`: title and body equal the previewed title and body (checked programmatically); no labels; author `tomlazelle`. |
+| Resulting record | `### PUB-1 — 2026-10-05` · Provider `github` · Repository `tomlazelle/UsedForPractice` · Issue `#1` · URL `https://github.com/tomlazelle/UsedForPractice/issues/1` appended to the Story's `## Publication` section. `status: Approved` and `delivery_status: Verified` unchanged; only `updated` moved; the Story file was the only file changed (9 lines added). |
+| Same-repository duplicate prevention | `sdlc publish-preview US-001` → `=== US-001 — SKIP ===`, notice `already-published … tomlazelle/UsedForPractice#1`, `Will create: nothing`; `sdlc publish-apply US-001 --confirm-digest <that digest>` → `US-001: skipped already published`, `External mutations: 0`; `gh issue list --repo tomlazelle/UsedForPractice --state all` afterwards: exactly **one** Issue (#1). No second Issue was created. |
+| Final `sdlc validate` | `7 document(s): 0 error(s), 1 warning(s), 0 notice(s)`, exit 0 (the one warning is the expected `verified-with-unresolved-tbd`). |
+| Cleanup | The Issue was **not** closed, edited or deleted, and I will not do so unless you ask. No credential appears in any artifact (`gh` used your existing login; tests scan the fixtures). |
+
+Artifacts: transcript `tests/fixtures/m6/transcripts/09-live-github-publication.md`; snapshot `tests/fixtures/m6/live-publication/` (`US-001-list-overdue-tasks.md` with the PUB-1 record, `config.md`, `issue.json`, `issue-body.md`, `issues-after-duplicate-attempt.json`); asserted by `test_live_publication_record_issue_and_body_are_consistent` (record parses; status/delivery unchanged; `validate` clean; the same-repository preview skips; the Story still renders to exactly what GitHub holds). Disclosed: the walkthrough repository's `publishing` config was pointed at the live repository by hand (commits `MANUAL: point publishing …` and `MANUAL: human re-designated …`); the live apply was run by me directly through the CLI (not through an agent session) with the real `gh` and the stub removed from `PATH`; the Issue lives in a **public** repository you designated for this purpose.
 
 ## 7. Cross-agent release matrix
 
@@ -110,7 +124,7 @@ When asked to designate a test repository, you answered "use local for now". I i
 | Technical Skill execution | **new** — refine, test plan, implement, verify | **new** — design (+RES), plan, review |
 | `sdlc-status` | **new** — `st-1`, `st-3`, discovery | **new** — `st-2`, `st-4`, discovery |
 | `publish-stories` preview / confirmation behavior | **new** (stub) — `pub-c1`, `pub-c2`; confirmed-publication path reused from M5 (stub) | **new** (stub) — `pub-x1`, `pub-x2`; confirmed-publication path reused from M5 (stub) |
-| Real GitHub publication | open (§6.4) | open (§6.4) |
+| Real GitHub publication | **new** — one live Issue via `sdlc publish-apply` (§6.4); the CLI path is agent-independent. The agent-driven confirmation behavior is shown with the stub (rows above) and reused from M5 | same |
 
 ## 8. Defects found during M6
 
@@ -125,24 +139,28 @@ Not product defects (process issues disclosed above): the stale instruction file
 
 ## 9. Limitations
 
-- **Live GitHub publication has not been executed** (§6.4); the release gate item remains open.
+- **Only one live publication was executed** (one Issue, public repository, run directly through the CLI rather than through an agent session). Live failure modes (permissions, rate limits, scopes) remain covered only by M5's stub tests.
 - **User-scope Skill links** (`--scope user`) are not verified with the agents; project scope is.
 - **Upgrade:** `init` never refreshes existing `AGENTS.md`/`CLAUDE.md` (approved create-if-missing behavior), so a project created with an older release keeps older instruction text; documented in the README.
 - **Symlink adapters point into the pipx environment**: a pipx reinstall that changes the environment path (for example a different Python version) breaks the links until the install command is re-run with `--force`.
 - Single-sample agent runs: each agent behavior is one observation, not a statistic. The Codex `ins-3` and first discovery attempts were inconclusive/unexplained; only the later successful retries count.
 - The walkthrough's review found nothing (a valid outcome, but the review→rework loop was not exercised in M6; M4 covers rework).
-- The publishing-behavior runs in the walkthrough used the stub; M5's carried-over limitations stand (the digest gate cannot prove human intent; single-writer; non-transactional crash window; relative links; Codex was not run for every M5 scenario).
+- The agent-driven publishing-behavior runs in the walkthrough used the stub; M5's carried-over limitations stand (the digest gate cannot prove human intent; single-writer; non-transactional crash window; relative links; Codex was not run for every M5 scenario).
 - The `sdlc-validate` Skill's duplicate-ID renumbering flow was not re-run with an agent in M6 (CLI detection of a real merge duplicate was).
 - Windows/macOS were not tested (Linux only); the package is pure Python.
 
 ## 10. Release candidate result
 
-**Not ready for final sign-off as-is.** Every handoff checklist item is satisfied with evidence **except** the real GitHub publication block (§11: preview shown, explicit authorization, one Issue created, publication record validated, same-repository duplicate demonstrated) is **open** pending your repository designation and authorization. All automated gates pass (530 passed on Python 3.11.16 with install tests; 522 passed + 8 opt-in skipped otherwise). Release approval is yours; this document does not grant it.
+**The release candidate is ready for human sign-off.** Every handoff checklist item has evidence: package build and `pipx` install, documentation validated in a clean environment, both agents' discovery and use, the clean-repository walkthrough through Verified, the three deferred acceptance items (Codex contextual overlap, live-agent RES, clean E2E) and the one real GitHub publication with duplicate prevention. Final automated result: **532 passed** on Python 3.11.16 with `SDLC_TEST_INSTALL=1` (524 passed + 8 opt-in skipped by default; Python 3.14.4 the same). The four defects found (§8) were fixed narrowly with regression tests and none changed an approved contract. Remaining limitations are in §9. Release approval is yours; this document does not grant it.
 
 ## 11. Handoff release checklist status
 
-M5 approval recorded ✓ · package builds ✓ · pipx clean install ✓ · `sdlc` entry point ✓ · runtime package data complete ✓ · install docs validated clean ✓ · Claude Code install/discovery ✓ · Codex install/discovery ✓ · fresh repo initialized ✓ · init idempotent ✓ · BRD/PRD/Story chain ✓ · real Codex overlap before allocation ✓ · technical flow ✓ · live-agent RES ✓ · real implementation ✓ · review ✓ · real verification, Verified ✓ · `validate` passes (0 errors) ✓ · `sdlc-status` accurate and read-only ✓ · **live GitHub preview shown ✗ · explicit authorization ✗ · one real Issue ✗ · publication record validated (live) ✗ · same-repository duplicate demonstrated live ✗** (stub-level ✓) · cross-agent matrix ✓ (live row open) · Python 3.11 suite with install tests ✓ · documentation walkthrough ✓ · this document ✓ · limitations documented ✓ · presented for human sign-off — pending.
+All items ✓: M5 approval recorded · package builds · pipx clean install · `sdlc` entry point · runtime package data complete · install docs validated clean · Claude Code install/discovery · Codex install/discovery · fresh repo initialized · init idempotent · BRD/PRD/Story chain · real Codex overlap before allocation · technical flow · live-agent RES · real implementation · review · real verification, Verified · `validate` passes (0 errors) · `sdlc-status` accurate and read-only · **live GitHub preview shown · explicit human authorization obtained for the exact preview · one real Issue created (#1) · publication record validated (PUB-1) · same-repository duplicate demonstrated without a second Issue** · cross-agent matrix · Python 3.11 suite with install tests (532) · documentation walkthrough · this document · limitations documented · presented for human sign-off (final sign-off pending: yours).
 
 ## 12. Files touched in M6
 
-New: `setup.py`, `MANIFEST.in`, `README.md`, `sdlc/resources.py`, `sdlc/adapters.py` (moved from `install/_link.py`), `tests/unit/{test_packaging,test_readme,test_m6_fixtures}.py`, `tests/fixtures/m6/`, `docs/SDLC-M6-EVIDENCE.md`. Modified: `pyproject.toml` (version, scripts, readme), `sdlc/{__init__,cli,technical}.py`, `install/{claude_code,codex}.py`, all `skills/**` and `shared/**` text that named `python -m sdlc`, `skills/review-implementation/SKILL.md`, `sdlc/templates/{AGENTS,CLAUDE}.md`, `.gitignore`, `tests/unit/{test_skills,test_status,test_technical}.py`, `docs/SDLC-IMPLEMENTATION-CHECKLIST.md`.
+New: `setup.py`, `MANIFEST.in`, `README.md`, `sdlc/resources.py`, `sdlc/adapters.py` (moved from `install/_link.py`), `tests/unit/{test_packaging,test_readme,test_m6_fixtures}.py`, `tests/fixtures/m6/` (including `live-publication/` and transcript `09`), `docs/SDLC-M6-EVIDENCE.md`. Modified: `pyproject.toml` (version, scripts, readme), `sdlc/{__init__,cli,technical}.py`, `install/{claude_code,codex}.py`, all `skills/**` and `shared/**` text that named `python -m sdlc`, `skills/review-implementation/SKILL.md`, `sdlc/templates/{AGENTS,CLAUDE}.md`, `.gitignore`, `tests/unit/{test_skills,test_status,test_technical}.py`, `docs/SDLC-IMPLEMENTATION-CHECKLIST.md`.
+
+## 13. Release-note item
+
+The verified walkthrough Story (`US-001`) still contains one explicitly unresolved acceptance item (how a malformed due date should be reported). The reviewer recorded it as not a release blocker and worth preserving in the release notes: it is surfaced rather than hidden (`sdlc-status` traceability, the `verified-with-unresolved-tbd` validator warning, and the published Issue body), which shows the difference between structural/verifiable completion and unresolved product behavior. (No separate release-notes file exists in the repository; this section and the checklist carry the item.)

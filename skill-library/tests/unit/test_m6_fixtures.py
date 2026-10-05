@@ -185,4 +185,42 @@ def test_no_credentials_or_personal_emails_in_m6_fixtures():
             text = path.read_text(errors="ignore")
             assert not re.search(r"ghp_|github_pat_|gho_|ghs_|Bearer ", text), path
             assert not [e for e in email.findall(text) if not e.endswith(("example.com", "e.com"))], path
-            assert "tomlazelle" not in text and "gmail" not in text, path
+            live_evidence = "live-publication" in path.parts or path.name == "09-live-github-publication.md"
+            assert "gmail" not in text and (live_evidence or "tomlazelle" not in text), path  # the handle is public only in the live Issue URLs
+
+
+# --- the one live GitHub publication -------------------------------------------------------------
+
+LIVE = FIX / "live-publication"
+
+
+def test_live_publication_record_issue_and_body_are_consistent(tmp_path, capsys, monkeypatch):
+    root = tmp_path / "live"
+    shutil.copytree(PROJECT, root)
+    shutil.copy(LIVE / "US-001-list-overdue-tasks.md", root / "Stories" / "US-001-list-overdue-tasks.md")
+    shutil.copy(LIVE / "config.md", root / ".sdlc" / "config.md")
+    sb = Sandbox(root, capsys, monkeypatch)
+    issue = json.loads((LIVE / "issue.json").read_text())
+    assert issue["number"] == 1 and issue["title"] == "[US-001] List overdue tasks" and issue["labels"] == []
+    assert issue["url"] == "https://github.com/tomlazelle/UsedForPractice/issues/1"
+    story = root / "Stories" / "US-001-list-overdue-tasks.md"
+    pubs, diags = publication.parse("x", "US-001", technical.sections(story.read_text()))
+    assert not diags and [(p.id, p.provider, p.repository, p.issue, p.url) for p in pubs] == [
+        ("PUB-1", "github", "tomlazelle/UsedForPractice", "#1", issue["url"])]
+    m = meta(story)
+    assert m["status"] == "Approved" and m["delivery_status"] == "Verified"  # publication was non-material
+    code, data, _ = sb.run("validate")
+    assert code == 0 and data["result"]["summary"]["error"] == 0 and not sb.diags(data, "stale-map")
+    code, data, _ = sb.run("publish-preview", "US-001")  # same repository: skipped, not duplicated
+    s = data["result"]["stories"][0]
+    assert code == 0 and s["action"] == "skip" and s["known_publication"]["issue"] == "#1" and data["result"]["will_create"] == []
+    assert s["issue_body"].strip() == (LIVE / "issue-body.md").read_text().strip()  # what GitHub holds is what the Story renders to
+    assert json.loads((LIVE / "issues-after-duplicate-attempt.json").read_text()) == [
+        {"number": 1, "state": "OPEN", "title": "[US-001] List overdue tasks"}]
+
+
+def test_live_publication_transcript_records_the_authorization_boundary():
+    text = (TRANSCRIPTS / "09-live-github-publication.md").read_text()
+    for marker in ("use local for now", "did **not** treat that as authorization", "do it", "External mutations: 1",
+                   "External mutations: 0", "exactly one Issue", "byte-identical"):
+        assert marker in text, marker

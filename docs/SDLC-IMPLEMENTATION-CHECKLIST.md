@@ -192,15 +192,19 @@ Evidence: [SDLC-M6-EVIDENCE.md](SDLC-M6-EVIDENCE.md). Handoff: [SDLC-M6-RELEASE-
 - [x] Real verification evidence produced; Story reaches Verified correctly
 - [x] `sdlc validate` passes
 - [x] `sdlc-status` accurately reports the final state and is read-only
-- [ ] **Deferred — OPEN:** live GitHub preview shown, exact explicit human authorization obtained, one real Issue created (no repository designated yet; the reply "use local for now" was read as deferral; nothing was created on GitHub)
-- [ ] Publication record validated (live); same-repository duplicate prevention demonstrated without a second Issue
-- [x] Cross-agent release matrix complete (every row new or reused-and-labelled; the real-publication row stays open below)
-- [x] Python 3.11 full suite passes with installation tests enabled — `SDLC_TEST_INSTALL=1`, Python 3.11.16: **530 passed** (M5 baseline 493); default run 522 passed + 8 opt-in skipped; Python 3.14.4: 522 passed + 8 skipped
+- [x] **Deferred:** live GitHub preview shown, exact explicit human authorization obtained for that preview, one real Issue created: `US-001` → https://github.com/tomlazelle/UsedForPractice/issues/1
+- [x] Publication record validated (`PUB-1`, live); same-repository duplicate prevention demonstrated without a second Issue (repo still holds exactly one Issue; `validate` 0 errors)
+- [x] Cross-agent release matrix complete (every row new or reused-and-labelled)
+- [x] Python 3.11 full suite passes with installation tests enabled — `SDLC_TEST_INSTALL=1`, Python 3.11.16: **532 passed** final (530 before the live-publication evidence tests; M5 baseline 493); default run 524 passed + 8 opt-in skipped; Python 3.14.4: 524 passed + 8 skipped
 - [x] Validation after a simulated branch merge with duplicate IDs (original M6 item)
 - [x] Confirm no third-party Skill dependency and no UI requirement (original M6 item; PyYAML is the only runtime dependency)
 - [x] Documentation walkthrough passes
 - [x] `docs/SDLC-M6-EVIDENCE.md` complete; remaining limitations documented
-- [ ] Release candidate presented for human sign-off (presented with the live GitHub block still open; see evidence §6.4 and §10)
-- [ ] **Human release sign-off** (not self-approved)
+- [x] Release candidate presented for human sign-off (evidence complete; see `SDLC-M6-EVIDENCE.md` §10)
+- [x] **Human release sign-off** — M6 approved by the human reviewer; `sdlc-skill-library 1.0.0rc1` approved for release
 
 **Exit criterion:** The full walk-through completes on each supported agent with a clean `validate`, documentation is reviewed, and a human signs off the release.
+
+**M6 is human-approved. M1 through M6 are complete.**
+
+**Release-note item (from the reviewer):** the verified walkthrough Story (`US-001`) still carries one explicitly unresolved acceptance item (how a malformed due date should be reported). It is not a release blocker: the system surfaces it (`status`, `validate` warning `verified-with-unresolved-tbd`, and the published Issue) instead of hiding it, which demonstrates the distinction between structural/verifiable completion and unresolved product behavior.
