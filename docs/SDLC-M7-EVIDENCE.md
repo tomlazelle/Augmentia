@@ -84,7 +84,8 @@ Removed from the tree: `skill-library/sdlc/` (all Python modules), `tests/` (all
 
 - [x] M7 human gate approved (parity, Python removal, release validation); PARITY-EXCEPTION-007 approved; EX-001 through EX-007 are the defined set of intentional deviations from `python-1.0.0rc1` (commit 5c63ffc).
 - [x] `@augmentia/sdlc` 2.0.0-rc.1 approved as the Node release candidate.
-- [ ] npm registry publication: **not authorized.** Requires separate explicit authorization after (a) copyright ownership is resolved (if Thomas La Zelle personally owns the work, "Copyright (c) 2026 Thomas La Zelle" is appropriate; if an employer or company owns it, use that legal owner) and (b) npm package and scope availability are confirmed.
+- [x] Copyright ownership confirmed by the owner: "Copyright (c) 2026 Thomas La Zelle" is correct.
+- [ ] npm registry publication: **not authorized.** Requires separate explicit authorization after npm package and scope availability are confirmed.
 - Initial Codex stop at `refine-stories` over the unresolved TBD is not a failure: the Skill respected the human-decision boundary.
 
 Limitations accepted at the gate, unchanged: Windows unsupported; user-scope agent discovery unverified (project scope verified); the existing malformed-due-date TBD remains unresolved; historical fixtures containing Python samples are evidence, not runtime or package content; npm registry publication has not been exercised.
