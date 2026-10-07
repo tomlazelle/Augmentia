@@ -1,0 +1,117 @@
+{
+  "argparse_text_cases": 12,
+  "blob_bytes": 545983,
+  "blobs": 591,
+  "by_command": {
+    "--version": {
+      "0": 1
+    },
+    "allocate-id": {
+      "0": 702,
+      "1": 7,
+      "2": 4
+    },
+    "create-dir": {
+      "0": 84,
+      "1": 2,
+      "2": 1
+    },
+    "find-overlaps": {
+      "0": 24,
+      "2": 1
+    },
+    "init": {
+      "0": 292,
+      "1": 2,
+      "2": 2
+    },
+    "list": {
+      "0": 16,
+      "2": 1
+    },
+    "publish-apply": {
+      "0": 15,
+      "1": 29,
+      "2": 1
+    },
+    "publish-preview": {
+      "0": 62,
+      "1": 9,
+      "2": 2
+    },
+    "references": {
+      "0": 25,
+      "1": 2,
+      "2": 1
+    },
+    "retire-id": {
+      "0": 19,
+      "1": 4,
+      "2": 3
+    },
+    "status": {
+      "0": 34,
+      "2": 1
+    },
+    "update-map": {
+      "0": 282,
+      "1": 3,
+      "2": 1
+    },
+    "validate": {
+      "0": 88,
+      "1": 127,
+      "2": 1
+    }
+  },
+  "cases": 1848,
+  "codes_defined": 93,
+  "codes_observed": 92,
+  "codes_unobserved": [
+    "bad-artifact"
+  ],
+  "corpus_bytes": {
+    "blobs.jsonl.gz": 146793,
+    "cases.jsonl.gz": 122310,
+    "trees.jsonl.gz": 91248
+  },
+  "ephemeral_cwd_cases": 11,
+  "exit_paths_executed": 36,
+  "exit_paths_total": 37,
+  "human_cases": {
+    "--version": 1,
+    "allocate-id": 6,
+    "create-dir": 4,
+    "find-overlaps": 4,
+    "init": 6,
+    "list": 4,
+    "publish-apply": 6,
+    "publish-preview": 4,
+    "references": 5,
+    "retire-id": 5,
+    "status": 6,
+    "update-map": 5,
+    "validate": 7
+  },
+  "json_cases": {
+    "allocate-id": 707,
+    "create-dir": 83,
+    "find-overlaps": 21,
+    "init": 290,
+    "list": 13,
+    "publish-apply": 39,
+    "publish-preview": 69,
+    "references": 23,
+    "retire-id": 21,
+    "status": 29,
+    "update-map": 281,
+    "validate": 209
+  },
+  "line_branch_coverage_percent": 95.7,
+  "non_replayable": 4,
+  "replayable": 1844,
+  "stub_gh_cases": 175,
+  "tests": 399,
+  "trees": 527,
+  "unclassified_uncovered": 0
+}

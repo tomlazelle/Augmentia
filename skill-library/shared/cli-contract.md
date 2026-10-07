@@ -6,7 +6,7 @@ The `sdlc` CLI is the deterministic helper runtime for every Skill. Skills invok
 sdlc <command> [arguments] [--root DIR] [--json]
 ```
 
-Install with `pipx install <package>` (Python 3.11+, PyYAML; development: `pip install -e .` from the skill-library checkout). The console command is `sdlc`; `python -m sdlc` is an exact equivalent wherever the package is importable. Skills and templates always say `sdlc`. `sdlc --version`, `sdlc --help` and `sdlc <command> --help` list version and options.
+Install with `npm install -g @augmentia/sdlc` (Node.js 22 or newer; development: `npm install && npm run build` in the `node/` project). The command is `sdlc`; the package also provides `sdlc-install-claude-code` and `sdlc-install-codex`. Skills and templates always say `sdlc`. `sdlc --version`, `sdlc --help` and `sdlc <command> --help` list version and options.
 
 ## Conventions
 
@@ -141,7 +141,7 @@ Result: `{"provider","repository","stories": [{"id","path","title","issue_title"
 The only command that contacts an external service and the only one that may create Issues. Recomputes the preview from the **current** files and proceeds only when `DIGEST` equals its digest. Otherwise it creates nothing: `confirmation-missing` (no digest) or `preview-stale` (mismatch), exit `1`; the refusal result never contains the current digest or Issue bodies. If any Story is `blocked`, nothing is published. Before creating anything it runs a read-only preflight through the provider (`gh auth status`, `gh repo view`): `provider-unavailable`, `provider-auth`, `repository-not-found`, `issues-disabled` or `provider-failed` abort with no mutation. It then creates one Issue per `create` Story with exactly the previewed title and body (no labels, assignees, milestones or projects) and, **only after the provider reports success**, appends the Publication record to that Story. Stories with a known publication **in the configured repository** (identity = Story + provider + repository) are `skipped`, never recreated; a publication in another repository does not block (preview notice `published-elsewhere`).
 Per-Story `outcome`: `published` (`issue`, `url`, `record`), `skipped`, `failed` (provider error; nothing recorded; other Stories are still attempted), `unconfirmed` (provider exited 0 without an Issue URL; code `provider-ambiguous`; later Stories `not-attempted`), `published-unrecorded` (Issue created but the local record could not be written; error `record-failed` flagged `INCONSISTENCY`; later Stories `not-attempted`; never retried), `not-attempted`. Exit `0` only if every created/skipped outcome succeeded; `1` otherwise.
 Result: the preview fields plus `"mutations"` (Issues actually created), `"published"`, `"outcomes"`.
-Provider boundary: `sdlc/github_provider.py` shells out to `gh` (`SDLC_GH_COMMAND` overrides the executable; tests use a stub). Authentication is whatever `gh` already has (`gh auth login`, `GH_TOKEN`, `GITHUB_TOKEN`); the CLI never reads, stores or prints a credential, and scrubs token-shaped strings from provider output.
+Provider boundary: the GitHub provider (`src/github.ts`) shells out to `gh` (`SDLC_GH_COMMAND` overrides the executable; tests use a stub). Authentication is whatever `gh` already has (`gh auth login`, `GH_TOKEN`, `GITHUB_TOKEN`); the CLI never reads, stores or prints a credential, and scrubs token-shaped strings from provider output.
 
 ## Configuration schema (`.sdlc/config.md`)
 

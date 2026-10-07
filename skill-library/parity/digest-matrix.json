@@ -1,0 +1,626 @@
+{
+ "source": "python-1.0.0rc1",
+ "base_files": {
+  "BR/BR-001-business.md": "---\nid: BR-001\ntitle: Business\npurpose: Why.\nstatus: Approved\ncreated: 2026-09-01\nupdated: 2026-09-01\n---\n\n# BR-001 — Business\n\n- **BR-001-R001** — A business requirement.\n",
+  "PR/PR-001-product.md": "---\nid: PR-001\ntitle: Product\npurpose: What.\nstatus: Approved\ncreated: 2026-09-01\nupdated: 2026-09-01\n---\n\n# PR-001 — Product\n\n## References\n\n### Derived From\n- [BR-001](../BR/BR-001-business.md)\n\n## Requirements\n\n- **PR-001-R001** — First.\n- **PR-001-R002** — Second.\n",
+  "Stories/US-001-export-report.md": "---\nid: US-001\ntitle: Export report\npurpose: Let users export a weekly report.\nstatus: Draft\ncreated: 2026-09-01\nupdated: 2026-09-01\ndelivery_status: Not Started\ncovers: [PR-001-R001]\n---\n\n# US-001 — Export report\n\n## References\n\n### Derived From\n- [PR-001](../PR/PR-001-product.md)\n\n## Story\n\nAs a user, I want to export a report, so that I can share it.\n\n## Acceptance Criteria\n\n1. **Given** data, **when** I export, **then** a file is produced.\n\n## Notes\n\nKeep it simple.\n",
+  "Stories/US-002-archive-old.md": "---\nid: US-002\ntitle: Archive old\npurpose: Archive stale items.\nstatus: Draft\ncreated: 2026-09-01\nupdated: 2026-09-01\ndelivery_status: Not Started\ncovers: []\n---\n\n# US-002 — Archive old\n\n## Acceptance Criteria\n\n1. **Given** stale items, **when** archiving runs, **then** they are archived.\n"
+ },
+ "base_selection": [
+  "US-001"
+ ],
+ "base_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+ "scenarios": [
+  {
+   "name": "Story body: acceptance criterion text",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "a file is produced",
+      "a CSV file is produced"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:d3349d63ddd749cfd96991529529bb7bc269d334145aa279a7d720c21ac8a6bc",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story body: new section",
+   "expect": "changes",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n## Edge Cases\n\nEmpty data.\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:c3eac73c08064e30395db7d6570782bc6d9c4b44cc40ab62d32f61b4320e15c1",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story body: unresolved TBD added",
+   "expect": "changes",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n### Unresolved Acceptance Behavior (TBD)\n\n- **TBD** — Large exports.\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:d663a7df9ccad9393b3be996202fd27420bfb7e4be905f086cc612eb421a77b8",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story title",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "title: Export report",
+      "title: Export weekly report"
+     ]
+    },
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "# US-001 — Export report",
+      "# US-001 — Export weekly report"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:2fae32ef10439342889aed664fad8d078a2e84a5e9423a00c22a923ae3195c28",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story purpose (rendered in the Issue header)",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "Let users export a weekly report.",
+      "Let users export a monthly report."
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:bc957d490de38e3351b7311de3f2686a8c3ab16327c05a7c02f1f6e34cc3dad1",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story covers (rendered in the Issue header)",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "covers: [PR-001-R001]",
+      "covers: [PR-001-R001, PR-001-R002]"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:4bff07e774a15725871325667f177bca628db5c40ae92b71456f6979ee304282",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story references (Derived From IDs in the header)",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "- [PR-001](../PR/PR-001-product.md)\n",
+      "- [PR-001](../PR/PR-001-product.md)\n- [BR-001](../BR/BR-001-business.md)\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:cf23f362ed03e8916b5a65bcfe91f580da732fb30f6299c17988000ec83d55a0",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Story body: relative link text",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "Keep it simple.",
+      "Keep it simple, see [notes](../PR/PR-001-product.md)."
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:4f05100df50cada367d2d4725b0a5e50e5b5956548f82eabaccaeda7a158e1c2",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Target repository",
+   "expect": "changes",
+   "ops": [
+    {
+     "config_repository": "acme/other"
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:9fc54efab6643846e6a8836bb796ce18ae0fb331ed1855080aa614e6848d5757",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Selection: second Story added",
+   "expect": "changes",
+   "ops": [],
+   "selection": [
+    "US-001",
+    "US-002"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:af15082a65481a3be3722268896477e909298a55147b4bca1db0973545ec569d",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create",
+    "create"
+   ]
+  },
+  {
+   "name": "Selection: different Story",
+   "expect": "changes",
+   "ops": [],
+   "selection": [
+    "US-002"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:2789f6d77b30328f9a356613b15050973e135ad65f44665eda01950dc2565ba7",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Known publication in the target repository (action CREATE -> SKIP)",
+   "expect": "changes",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n## Publication\n\n### PUB-1 — 2026-09-30\n- **Provider:** github\n- **Repository:** acme/widgets\n- **Issue:** #9\n- **URL:** https://github.com/acme/widgets/issues/9\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:13239f7786334a7a6f467cd0f0ef48d406517f1f24acc82bf1b680e1a98768f7",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "skip"
+   ]
+  },
+  {
+   "name": "Known publication: different Issue number",
+   "expect": "changes",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n## Publication\n\n### PUB-1 — 2026-09-30\n- **Provider:** github\n- **Repository:** acme/widgets\n- **Issue:** #10\n- **URL:** https://github.com/acme/widgets/issues/10\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:9f6713a1509049d1b1c77180775f0c8e2022fa4f1c41a4e8dda935b7bc9a89b3",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "skip"
+   ]
+  },
+  {
+   "name": "Second Story's body changes (two-Story selection)",
+   "expect": "changes",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-002-archive-old.md",
+      "they are archived",
+      "they are archived nightly"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001",
+    "US-002"
+   ],
+   "reference_selection": [
+    "US-001",
+    "US-002"
+   ],
+   "digest": "sha256:ad1bf4e04995f857bd41027ebea4c5a43ed3ca266c2b5792c34d073b2c9e2c53",
+   "reference_digest": "sha256:af15082a65481a3be3722268896477e909298a55147b4bca1db0973545ec569d",
+   "actions": [
+    "create",
+    "create"
+   ]
+  },
+  {
+   "name": "Front matter `updated` date",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "updated: 2026-09-01",
+      "updated: 2026-10-05"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Document status Draft -> Approved (a warning only)",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "status: Draft",
+      "status: Approved"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "delivery_status Not Started -> Ready",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "delivery_status: Not Started",
+      "delivery_status: Ready"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Implementation Record added (operational section)",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "delivery_status: Not Started",
+      "delivery_status: Implemented"
+     ]
+    },
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n## Implementation Record\n\n### IR-1 — 2026-09-29\n- **Summary:** done\n- **Files changed:** `a.py`\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Review Record added (operational section)",
+   "expect": "same",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n## Review Record\n\n### RV-1 — 2026-09-29\n- **Verdict:** complete\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Publication record for a DIFFERENT repository (identity is Story + provider + repository)",
+   "expect": "same",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n## Publication\n\n### PUB-1 — 2026-09-30\n- **Provider:** github\n- **Repository:** org/elsewhere\n- **Issue:** #5\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "References section link text (same target)",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "[PR-001](../PR/PR-001-product.md)",
+      "[the product requirements](../PR/PR-001-product.md)"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Extra blank lines between paragraphs",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-001-export-report.md",
+      "so that I can share it.\n",
+      "so that I can share it.\n\n\n\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Trailing blank lines at the end of the file",
+   "expect": "same",
+   "ops": [
+    {
+     "append": [
+      "Stories/US-001-export-report.md",
+      "\n\n\n"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Selection order and duplicates",
+   "expect": "same",
+   "ops": [],
+   "selection": [
+    "US-001",
+    "US-002",
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001",
+    "US-002"
+   ],
+   "digest": "sha256:af15082a65481a3be3722268896477e909298a55147b4bca1db0973545ec569d",
+   "reference_digest": "sha256:af15082a65481a3be3722268896477e909298a55147b4bca1db0973545ec569d",
+   "actions": [
+    "create",
+    "create"
+   ]
+  },
+  {
+   "name": "Unrelated Story (not selected) changes",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "Stories/US-002-archive-old.md",
+      "they are archived",
+      "they are archived nightly"
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  },
+  {
+   "name": "Unrelated document changes",
+   "expect": "same",
+   "ops": [
+    {
+     "replace": [
+      "BR/BR-001-business.md",
+      "A business requirement.",
+      "A reworded business requirement."
+     ]
+    }
+   ],
+   "selection": [
+    "US-001"
+   ],
+   "reference_selection": [
+    "US-001"
+   ],
+   "digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "reference_digest": "sha256:ad0be4e47d7e0797a3d4880d967b2764828e9bc085082cdc3aad63a98560ad39",
+   "actions": [
+    "create"
+   ]
+  }
+ ]
+}

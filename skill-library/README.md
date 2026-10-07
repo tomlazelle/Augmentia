@@ -9,22 +9,22 @@ A first-party, Markdown-first set of agent Skills plus a small deterministic com
 
 ## 1. Install
 
-**Prerequisites:** Python 3.11 or newer, [`pipx`](https://pipx.pypa.io/), and at least one agent: [Claude Code](https://claude.com/claude-code) or [Codex](https://github.com/openai/codex). For publishing you also need the [GitHub CLI](https://cli.github.com/) (`gh`), logged in.
+**Prerequisites:** [Node.js](https://nodejs.org/) 22 or newer (with npm), and at least one agent: [Claude Code](https://claude.com/claude-code) or [Codex](https://github.com/openai/codex). For publishing you also need the [GitHub CLI](https://cli.github.com/) (`gh`), logged in. Linux and macOS are supported; Windows is not.
 
 ```bash
-pipx install --python python3.11 <package>      # <package> = path to the wheel/sdist, or an index name once published
-sdlc --version        # -> sdlc 1.0.0rc1
+npm install -g @augmentia/sdlc      # or a local tarball: npm install -g ./augmentia-sdlc-2.0.0-rc.1.tgz
+sdlc --version        # -> sdlc 2.0.0-rc.1
 sdlc --help           # lists: init allocate-id retire-id create-dir update-map list references
                       #        find-overlaps status publish-preview publish-apply validate
 ```
 
-The `pipx` install provides three commands: `sdlc`, `sdlc-install-claude-code` and `sdlc-install-codex`. `python -m sdlc` also works wherever the package is importable (for example in a development checkout).
+The install provides three commands: `sdlc`, `sdlc-install-claude-code` and `sdlc-install-codex`. The only runtime dependency is the `yaml` package.
 
-**Upgrade or reinstall:** `pipx install --force --python python3.11 <new package>`. Skill links you made earlier keep working if the pipx environment path is unchanged; if a link breaks (for example after the Python version of the environment changes), re-run the install commands in section 2 with `--force`.
+**Upgrade or reinstall:** `npm install -g @augmentia/sdlc@<version>` (or the new tarball). Skill links you made earlier keep working if the install location is unchanged; if a link breaks (for example after you change Node versions with a version manager), re-run the install commands in section 2 with `--force`.
 
-**Project instruction files are not refreshed on upgrade.** `sdlc init` never overwrites `AGENTS.md`/`CLAUDE.md`, so a project created with an older release keeps the older text. After upgrading, compare them with the template shipped in the package (`AGENTS.md`/`CLAUDE.md` under `sdlc/templates/` inside the installed `sdlc` package) and update by hand, or delete them and run `sdlc init` to regenerate them.
+**Project instruction files are not refreshed on upgrade.** `sdlc init` never overwrites `AGENTS.md`/`CLAUDE.md`, so a project created with an older release keeps the older text. After upgrading, compare them with the template shipped in the package (`AGENTS.md`/`CLAUDE.md` under `dist/templates/` inside the installed `@augmentia/sdlc` package; `npm root -g` shows where) and update by hand, or delete them and run `sdlc init` to regenerate them.
 
-**Uninstall:** remove the Skill links first (`sdlc-install-claude-code --scope project --uninstall`, `sdlc-install-codex --scope project --uninstall`, from the same project), then `pipx uninstall sdlc-skill-library`. Your project files are never touched.
+**Uninstall:** remove the Skill links first (`sdlc-install-claude-code --scope project --uninstall`, `sdlc-install-codex --scope project --uninstall`, from the same project), then `npm uninstall -g @augmentia/sdlc`. Your project files are never touched.
 
 **Verify:** `sdlc --version` prints the version, and `sdlc init` followed by `sdlc validate` in an empty directory reports `0 error(s)`.
 
@@ -40,7 +40,7 @@ sdlc-install-codex       --scope project     # -> .agents/skills/<skill>   (Code
 
 Both commands accept `--project-dir DIR`, `--skill NAME` (repeatable), `--force` (replace a link that points elsewhere) and `--uninstall`. They never remove a real directory or a link that is not theirs and report it as `conflict`.
 
-**Verify discovery.** You should see 15 Skills, each a link into the pipx environment:
+**Verify discovery.** You should see 15 Skills, each a link into the installed npm package:
 
 ```bash
 ls -l .claude/skills .agents/skills
@@ -48,7 +48,7 @@ ls -l .claude/skills .agents/skills
 
 Then ask the agent to use one, for example *"Use the sdlc-status skill and tell me where this project stands."* Both agents were verified this way at project scope. `--scope user` (links in `~/.claude/skills` or `~/.agents/skills`) is implemented and unit-tested, but agent discovery from the user directory was **not** verified for this release; use project scope.
 
-Both agent folders are usually kept out of version control (`.claude/`, `.agents/` in `.gitignore`), since the links point into your own pipx environment.
+Both agent folders are usually kept out of version control (`.claude/`, `.agents/` in `.gitignore`), since the links point into your own npm installation.
 
 ## 3. Start a project
 
@@ -148,7 +148,7 @@ Each creating Skill checks for **overlaps** with existing documents (a determini
 
 ## 8. Troubleshooting
 
-- `sdlc: command not found`: run `pipx ensurepath` and open a new shell.
+- `sdlc: command not found`: make sure npm's global bin directory is on your `PATH` (`npm prefix -g` shows the prefix; its `bin/` must be on `PATH`) and open a new shell.
 - A Skill says the CLI is missing: the agent's shell cannot see `sdlc`; start the agent from a shell where `sdlc --version` works.
 - `conflict` from an install command: a real file or foreign link already occupies the Skill name; remove it or choose `--skill`.
 - `stale-map`: run `sdlc update-map`. `duplicate-id` after a merge: the `sdlc-validate` Skill walks you through renumbering.

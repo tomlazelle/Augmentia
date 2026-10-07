@@ -1,6 +1,0 @@
-include README.md
-recursive-include skills *
-recursive-include shared *
-recursive-include install *.py *.md
-recursive-include sdlc/templates *.md
-global-exclude __pycache__ *.pyc

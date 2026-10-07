@@ -208,3 +208,20 @@ Evidence: [SDLC-M6-EVIDENCE.md](SDLC-M6-EVIDENCE.md). Handoff: [SDLC-M6-RELEASE-
 **M6 is human-approved. M1 through M6 are complete.**
 
 **Release-note item (from the reviewer):** the verified walkthrough Story (`US-001`) still carries one explicitly unresolved acceptance item (how a malformed due date should be reported). It is not a release blocker: the system surfaces it (`status`, `validate` warning `verified-with-unresolved-tbd`, and the published Issue) instead of hiding it, which demonstrates the distinction between structural/verifiable completion and unresolved product behavior.
+
+## M7 — Node.js / TypeScript Migration (post-release)
+
+Plan: [SDLC-M7-NODE-MIGRATION-PLAN.md](SDLC-M7-NODE-MIGRATION-PLAN.md) (approved; decisions in §1a). M1–M6 (Python `sdlc-skill-library` 1.0.0rc1) are the behavioral oracle, tagged `python-1.0.0rc1`.
+
+- [x] Plan approved by the human reviewer (TypeScript, Node ≥ 22, one YAML dependency, npm distribution, `node:test`, version `2.0.0-rc.1`, `@augmentia/sdlc` proposed, MIT licence, Windows out of scope, semantic JSON parity / byte parity elsewhere, no second live Issue)
+- [x] **M7.0** — Python baseline tagged `python-1.0.0rc1` on commit `5c63ffc`; the tag's export passes `SDLC_TEST_INSTALL=1` on Python 3.11.16: 532 passed; toolchain recorded (Node v22.22.1, npm 9.2.0)
+- [x] **M7.1** — behavioral corpus recorded from the Python test suite (opt-in recorder), replayed 100% against the Python oracle, coverage and condition-level coverage measured, 16/16 sensitivity mutations detected, every uncovered behavior classified, targeted Python-side cases added; report: [SDLC-M7-1-CORPUS-REPORT.md](SDLC-M7-1-CORPUS-REPORT.md)
+- [x] **Human gate: M7.1 corpus approved and frozen**; decisions recorded: non-executable `gh` normalized to `provider-unavailable` in Node (PARITY-EXCEPTION-001), argparse-owned text exempt (PARITY-EXCEPTION-002), dead code not ported with a register (`parity/DROPPED.md`); see `skill-library/parity/EXCEPTIONS.md`
+- [x] M7.2 Node core (model, frontmatter, markdown, ledger, ids, project, maps, init, allocate-id, retire-id, create-dir, update-map, CLI skeleton): 24 Node tests; 1,351 applicable corpus cases (1,342 exact + 9 exempt) 0 failed; oracle changes 0; report: [SDLC-M7-2-REPORT.md](SDLC-M7-2-REPORT.md)
+- [x] M7.3 Maps, query, validate: 34 Node tests; 1,629 applicable corpus cases (1,616 exact + 13 exempt) 0 failed; 54/54 validator codes with contracted severities; overlap-score parity; 26/26 mutations detected; oracle changes 0; report: [SDLC-M7-3-REPORT.md](SDLC-M7-3-REPORT.md)
+- [x] M7.4 Technical, status, publishing (digest parity): 91 Node tests; 1,844 applicable corpus cases (1,831 exact + 13 exempt) 0 failed; 100% digest equality (81 corpus runs/29 digests + 26/26 matrix); 14/12 sensitivity matches oracle; provider failure matrix; oracle changes 0; EX-006 proposed; report: [SDLC-M7-4-REPORT.md](SDLC-M7-4-REPORT.md)
+- [x] M7.5 Packaging (`npm pack` tarball), installers, docs, Skill text, MIT licence: 146 Node tests; clean-prefix tarball install; adapters; README/Skill text for npm; MIT; report: [SDLC-M7-5-REPORT.md](SDLC-M7-5-REPORT.md)
+- [x] M7.6 Parity gate (differential run, both agents), Python removed, evidence: [SDLC-M7-EVIDENCE.md](SDLC-M7-EVIDENCE.md) — 41,783 differential inputs, 100% digest equality, EX-001..007, Claude Code 12/12 and Codex 12/12 from the npm tarball, 151 Node tests, corpus 1,844 (1,831 exact + 13 exempt) 0 failed, 51/51 mutations
+- [x] **Human gate: M7 final sign-off (parity, Python removal, release validation)** — approved; PARITY-EXCEPTION-007 approved; EX-001..007 are the approved intentional deviations from `python-1.0.0rc1` (5c63ffc)
+- [x] **Human gate: `@augmentia/sdlc` 2.0.0-rc.1 approved as the Node release candidate.** npm registry publication is **not** authorized: it needs separate explicit authorization after copyright ownership and npm package/scope availability are confirmed
+

@@ -7,7 +7,7 @@ description: Initialize (or safely re-run initialization of) the Markdown SDLC s
 
 Creates the standard SDLC project structure by running the `sdlc` CLI. Do not create these files or folders by hand and do not reimplement any of the CLI's logic.
 
-The CLI is `sdlc` (installed with `pipx install`; contract: `../../shared/cli-contract.md`). If it fails with `command not found: sdlc`, tell the user to install the library and stop.
+The CLI is `sdlc` (installed with `npm install -g @augmentia/sdlc`; contract: `../../shared/cli-contract.md`). If it fails with `command not found: sdlc`, tell the user to install the library and stop.
 
 ## Steps
 

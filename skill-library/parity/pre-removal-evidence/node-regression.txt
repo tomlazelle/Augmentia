@@ -1,0 +1,23 @@
+== node npm test
+# tests 151
+# pass 151
+# fail 0
+== node corpus replay
+corpus cases applicable to this build: 1844 of 1848
+passed 1831, passed under approved exemption 13, FAILED 0
+  --version        pass    0  exempt   1  fail   0
+  allocate-id      pass  710  exempt   3  fail   0
+  create-dir       pass   86  exempt   1  fail   0
+  find-overlaps    pass   24  exempt   1  fail   0
+  init             pass  293  exempt   2  fail   0
+  list             pass   16  exempt   1  fail   0
+  publish-apply    pass   44  exempt   0  fail   0
+  publish-preview  pass   72  exempt   0  fail   0
+  references       pass   27  exempt   1  fail   0
+  retire-id        pass   25  exempt   1  fail   0
+  status           pass   35  exempt   0  fail   0
+  update-map       pass  284  exempt   1  fail   0
+  validate         pass  215  exempt   1  fail   0
+== versions
+v22.22.1
+9.2.0

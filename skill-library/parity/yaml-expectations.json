@@ -1,0 +1,1196 @@
+{
+ "source": "python-1.0.0rc1 sdlc.frontmatter / PyYAML",
+ "parse": [
+  {
+   "input": "",
+   "ok": {}
+  },
+  {
+   "input": "   ",
+   "ok": {}
+  },
+  {
+   "input": "# only a comment",
+   "ok": {}
+  },
+  {
+   "input": "~",
+   "ok": {}
+  },
+  {
+   "input": "null",
+   "ok": {}
+  },
+  {
+   "input": "a: 1",
+   "ok": {
+    "a": 1
+   }
+  },
+  {
+   "input": "a:",
+   "ok": {
+    "a": null
+   }
+  },
+  {
+   "input": "a: ~",
+   "ok": {
+    "a": null
+   }
+  },
+  {
+   "input": "a: null",
+   "ok": {
+    "a": null
+   }
+  },
+  {
+   "input": "a: ''",
+   "ok": {
+    "a": ""
+   }
+  },
+  {
+   "input": "a: \"\"",
+   "ok": {
+    "a": ""
+   }
+  },
+  {
+   "input": "a: yes",
+   "ok": {
+    "a": true
+   }
+  },
+  {
+   "input": "a: no",
+   "ok": {
+    "a": false
+   }
+  },
+  {
+   "input": "a: on",
+   "ok": {
+    "a": true
+   }
+  },
+  {
+   "input": "a: off",
+   "ok": {
+    "a": false
+   }
+  },
+  {
+   "input": "a: Yes",
+   "ok": {
+    "a": true
+   }
+  },
+  {
+   "input": "a: NO",
+   "ok": {
+    "a": false
+   }
+  },
+  {
+   "input": "a: y",
+   "ok": {
+    "a": "y"
+   }
+  },
+  {
+   "input": "a: n",
+   "ok": {
+    "a": "n"
+   }
+  },
+  {
+   "input": "a: true",
+   "ok": {
+    "a": true
+   }
+  },
+  {
+   "input": "a: True",
+   "ok": {
+    "a": true
+   }
+  },
+  {
+   "input": "a: FALSE",
+   "ok": {
+    "a": false
+   }
+  },
+  {
+   "input": "a: 0",
+   "ok": {
+    "a": 0
+   }
+  },
+  {
+   "input": "a: 007",
+   "ok": {
+    "a": 7
+   }
+  },
+  {
+   "input": "a: 0o17",
+   "ok": {
+    "a": "0o17"
+   }
+  },
+  {
+   "input": "a: 0x1f",
+   "ok": {
+    "a": 31
+   }
+  },
+  {
+   "input": "a: 0b101",
+   "ok": {
+    "a": 5
+   }
+  },
+  {
+   "input": "a: 1_000",
+   "ok": {
+    "a": 1000
+   }
+  },
+  {
+   "input": "a: 1:30",
+   "ok": {
+    "a": 90
+   }
+  },
+  {
+   "input": "a: 1:30:15",
+   "ok": {
+    "a": 5415
+   }
+  },
+  {
+   "input": "a: +5",
+   "ok": {
+    "a": 5
+   }
+  },
+  {
+   "input": "a: -5",
+   "ok": {
+    "a": -5
+   }
+  },
+  {
+   "input": "a: 08",
+   "ok": {
+    "a": "08"
+   }
+  },
+  {
+   "input": "a: 09",
+   "ok": {
+    "a": "09"
+   }
+  },
+  {
+   "input": "a: 1.5",
+   "ok": {
+    "a": {
+     "$float": "1.5"
+    }
+   }
+  },
+  {
+   "input": "a: 1e3",
+   "ok": {
+    "a": "1e3"
+   }
+  },
+  {
+   "input": "a: 1.0e+3",
+   "ok": {
+    "a": {
+     "$float": "1000.0"
+    }
+   }
+  },
+  {
+   "input": "a: 1.0E-3",
+   "ok": {
+    "a": {
+     "$float": "0.001"
+    }
+   }
+  },
+  {
+   "input": "a: .5",
+   "ok": {
+    "a": {
+     "$float": "0.5"
+    }
+   }
+  },
+  {
+   "input": "a: 5.",
+   "ok": {
+    "a": {
+     "$float": "5.0"
+    }
+   }
+  },
+  {
+   "input": "a: .inf",
+   "ok": {
+    "a": {
+     "$float": "inf"
+    }
+   }
+  },
+  {
+   "input": "a: -.inf",
+   "ok": {
+    "a": {
+     "$float": "-inf"
+    }
+   }
+  },
+  {
+   "input": "a: 2026-09-29",
+   "ok": {
+    "a": "2026-09-29"
+   }
+  },
+  {
+   "input": "a: 2026-9-9",
+   "ok": {
+    "a": "2026-9-9"
+   }
+  },
+  {
+   "input": "a: 2026-09-29 10:00:00",
+   "ok": {
+    "a": {
+     "$datetime": "datetime.datetime(2026, 9, 29, 10, 0)"
+    }
+   }
+  },
+  {
+   "input": "a: 2026-09-29T10:00:00Z",
+   "ok": {
+    "a": {
+     "$datetime": "datetime.datetime(2026, 9, 29, 10, 0, tzinfo=datetime.timezone.utc)"
+    }
+   }
+  },
+  {
+   "input": "a: 2026-09-29T10:00:00.5+02:00",
+   "ok": {
+    "a": {
+     "$datetime": "datetime.datetime(2026, 9, 29, 10, 0, 0, 500000, tzinfo=datetime.timezone(datetime.timedelta(seconds=7200)))"
+    }
+   }
+  },
+  {
+   "input": "a: 2026-09-29 10:00:00 -5",
+   "ok": {
+    "a": {
+     "$datetime": "datetime.datetime(2026, 9, 29, 10, 0, tzinfo=datetime.timezone(datetime.timedelta(days=-1, seconds=68400)))"
+    }
+   }
+  },
+  {
+   "input": "a: 2026-02-30",
+   "error": "invalid YAML value: day is out of range for month"
+  },
+  {
+   "input": "a: 2026-13-01",
+   "error": "invalid YAML value: month must be in 1..12"
+  },
+  {
+   "input": "a: 0000-01-01",
+   "error": "invalid YAML value: year 0 is out of range"
+  },
+  {
+   "input": "a: 2026-09-29T25:00:00Z",
+   "error": "invalid YAML value: hour must be in 0..23"
+  },
+  {
+   "input": "a: '2026-09-29'",
+   "ok": {
+    "a": "2026-09-29"
+   }
+  },
+  {
+   "input": "a: \"2026-09-29\"",
+   "ok": {
+    "a": "2026-09-29"
+   }
+  },
+  {
+   "input": "a: hello world",
+   "ok": {
+    "a": "hello world"
+   }
+  },
+  {
+   "input": "a: 'it''s'",
+   "ok": {
+    "a": "it's"
+   }
+  },
+  {
+   "input": "a: \"a\\nb\"",
+   "ok": {
+    "a": "a\nb"
+   }
+  },
+  {
+   "input": "a: \"tab\\there\"",
+   "ok": {
+    "a": "tab\there"
+   }
+  },
+  {
+   "input": "a: a: b",
+   "error": "invalid YAML: mapping values are not allowed here"
+  },
+  {
+   "input": "a: b: c",
+   "error": "invalid YAML: mapping values are not allowed here"
+  },
+  {
+   "input": "a: [1, 2, three]",
+   "ok": {
+    "a": [
+     1,
+     2,
+     "three"
+    ]
+   }
+  },
+  {
+   "input": "a: [",
+   "error": "invalid YAML: while parsing a flow node"
+  },
+  {
+   "input": "a: {k: v, n: 1}",
+   "ok": {
+    "a": {
+     "k": "v",
+     "n": 1
+    }
+   }
+  },
+  {
+   "input": "a: {k: v",
+   "error": "invalid YAML: while parsing a flow mapping"
+  },
+  {
+   "input": "a: [x, [y, z]]",
+   "ok": {
+    "a": [
+     "x",
+     [
+      "y",
+      "z"
+     ]
+    ]
+   }
+  },
+  {
+   "input": "a: |\n  line1\n  line2\n",
+   "ok": {
+    "a": "line1\nline2\n"
+   }
+  },
+  {
+   "input": "a: >\n  folded\n  text\n",
+   "ok": {
+    "a": "folded text\n"
+   }
+  },
+  {
+   "input": "a: multi\n  line plain\n  scalar",
+   "ok": {
+    "a": "multi line plain scalar"
+   }
+  },
+  {
+   "input": "a: |-\n  strip\n",
+   "ok": {
+    "a": "strip"
+   }
+  },
+  {
+   "input": "a: |+\n  keep\n\n",
+   "ok": {
+    "a": "keep\n\n"
+   }
+  },
+  {
+   "input": "- a\n- b",
+   "error": "front matter must be a YAML mapping"
+  },
+  {
+   "input": "just a scalar",
+   "error": "front matter must be a YAML mapping"
+  },
+  {
+   "input": "- a: 1\n  b: 2",
+   "error": "front matter must be a YAML mapping"
+  },
+  {
+   "input": "a: &x {k: v}\nb: *x",
+   "ok": {
+    "a": {
+     "k": "v"
+    },
+    "b": {
+     "k": "v"
+    }
+   }
+  },
+  {
+   "input": "base: &b {x: 1, y: 2}\nd:\n  <<: *b\n  y: 3",
+   "ok": {
+    "base": {
+     "x": 1,
+     "y": 2
+    },
+    "d": {
+     "x": 1,
+     "y": 3
+    }
+   }
+  },
+  {
+   "input": "m:\n  <<: [{a: 1}, {a: 2, b: 3}]\n  c: 4",
+   "ok": {
+    "m": {
+     "a": 1,
+     "b": 3,
+     "c": 4
+    }
+   }
+  },
+  {
+   "input": "a: <<",
+   "error": "invalid YAML: could not determine a constructor for the tag 'tag:yaml.org,2002:merge'"
+  },
+  {
+   "input": "a: =",
+   "error": "invalid YAML: could not determine a constructor for the tag 'tag:yaml.org,2002:value'"
+  },
+  {
+   "input": "a: 1\na: 2",
+   "ok": {
+    "a": 2
+   }
+  },
+  {
+   "input": "1: x\n2: y",
+   "ok": {
+    "1": "x",
+    "2": "y"
+   }
+  },
+  {
+   "input": "true: x",
+   "ok": {
+    "True": "x"
+   }
+  },
+  {
+   "input": "~: x",
+   "ok": {
+    "None": "x"
+   }
+  },
+  {
+   "input": "2026-09-29: x",
+   "ok": {
+    "2026-09-29": "x"
+   }
+  },
+  {
+   "input": "? complex\n: v",
+   "ok": {
+    "complex": "v"
+   }
+  },
+  {
+   "input": "? [a, b]\n: v",
+   "error": "invalid YAML: while constructing a mapping"
+  },
+  {
+   "input": "a: !!str 123",
+   "ok": {
+    "a": "123"
+   }
+  },
+  {
+   "input": "a: !!int '7'",
+   "ok": {
+    "a": 7
+   }
+  },
+  {
+   "input": "a: !!float 1",
+   "ok": {
+    "a": {
+     "$float": "1.0"
+    }
+   }
+  },
+  {
+   "input": "a: !!bool yes",
+   "ok": {
+    "a": true
+   }
+  },
+  {
+   "input": "a: !!null x",
+   "ok": {
+    "a": null
+   }
+  },
+  {
+   "input": "a: !foo bar",
+   "error": "invalid YAML: could not determine a constructor for the tag '!foo'"
+  },
+  {
+   "input": "a: !!python/object:os.system x",
+   "error": "invalid YAML: could not determine a constructor for the tag 'tag:yaml.org,2002:python/object:os.system'"
+  },
+  {
+   "input": "a: !!binary aGk=",
+   "ok": {
+    "a": {
+     "$bytes": "6869"
+    }
+   }
+  },
+  {
+   "input": "a: !!set {x, y}",
+   "ok": {
+    "a": {
+     "$set": [
+      "x",
+      "y"
+     ]
+    }
+   }
+  },
+  {
+   "input": "a: \"unterminated",
+   "error": "invalid YAML: while scanning a quoted scalar"
+  },
+  {
+   "input": "a: 'unterminated",
+   "error": "invalid YAML: while scanning a quoted scalar"
+  },
+  {
+   "input": "a:\tb",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "\ta: b",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a: b\n c: d",
+   "error": "invalid YAML: mapping values are not allowed here"
+  },
+  {
+   "input": "a: [1, 2\nb: 3",
+   "error": "invalid YAML: while parsing a flow sequence"
+  },
+  {
+   "input": "key: value\n  bad indent: 1",
+   "error": "invalid YAML: mapping values are not allowed here"
+  },
+  {
+   "input": "a: *undefined",
+   "error": "invalid YAML: found undefined alias 'undefined'"
+  },
+  {
+   "input": "a: &x 1\nb: *x",
+   "ok": {
+    "a": 1,
+    "b": 1
+   }
+  },
+  {
+   "input": "id: US-001\ntitle: \"Hello: world\"\npurpose: One line.\nstatus: Draft\ncreated: 2026-09-01\nupdated: 2026-09-29\ndelivery_status: Not Started\ncovers: [PR-001-R001, PR-001-R002]",
+   "ok": {
+    "id": "US-001",
+    "title": "Hello: world",
+    "purpose": "One line.",
+    "status": "Draft",
+    "created": "2026-09-01",
+    "updated": "2026-09-29",
+    "delivery_status": "Not Started",
+    "covers": [
+     "PR-001-R001",
+     "PR-001-R002"
+    ]
+   }
+  },
+  {
+   "input": "id: BR-001\ncovers: []\nnotes: {}\nempty:\nflag: yes\ncount: 3",
+   "ok": {
+    "id": "BR-001",
+    "covers": [],
+    "notes": {},
+    "empty": null,
+    "flag": true,
+    "count": 3
+   }
+  },
+  {
+   "input": "title: 日本語 café\npurpose: naïve ünï",
+   "ok": {
+    "title": "日本語 café",
+    "purpose": "naïve ünï"
+   }
+  },
+  {
+   "input": "publishing:\n  provider: github\n  repository: owner/name",
+   "ok": {
+    "publishing": {
+     "provider": "github",
+     "repository": "owner/name"
+    }
+   }
+  },
+  {
+   "input": "a: 'x'\nb: \"y\"\nc: z # trailing comment",
+   "ok": {
+    "a": "x",
+    "b": "y",
+    "c": "z"
+   }
+  },
+  {
+   "input": "a: x #notcomment",
+   "ok": {
+    "a": "x"
+   }
+  },
+  {
+   "input": "a: [a,b,]",
+   "ok": {
+    "a": [
+     "a",
+     "b"
+    ]
+   }
+  },
+  {
+   "input": "a: {a: 1,}",
+   "ok": {
+    "a": {
+     "a": 1
+    }
+   }
+  },
+  {
+   "input": "a: \"\\u00e9\"",
+   "ok": {
+    "a": "é"
+   }
+  },
+  {
+   "input": "a: ' '",
+   "ok": {
+    "a": " "
+   }
+  },
+  {
+   "input": "a: b c",
+   "error": "invalid YAML: while scanning a simple key"
+  },
+  {
+   "input": "a: b\tc",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a: 'x\ty'",
+   "ok": {
+    "a": "x\ty"
+   }
+  },
+  {
+   "input": "a: \"x\ty\"",
+   "ok": {
+    "a": "x\ty"
+   }
+  },
+  {
+   "input": "a: x # c\td",
+   "ok": {
+    "a": "x"
+   }
+  },
+  {
+   "input": "k:\n\t- x",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "k:\n  - x\n  -\ty",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "- \tx",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a: |\n  x:\ty\n",
+   "ok": {
+    "a": "x:\ty\n"
+   }
+  },
+  {
+   "input": "a:\t",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a: [1,\t2]",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a: {k:\tv}",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a:\n  b:\tc",
+   "error": "invalid YAML: while scanning for the next token"
+  },
+  {
+   "input": "a: bc",
+   "error": "invalid YAML: while scanning a simple key"
+  },
+  {
+   "input": "a: \"x y\"",
+   "ok": {
+    "a": "x y"
+   }
+  },
+  {
+   "input": "a: x\n b: 1",
+   "ok": {
+    "a": "x",
+    "b": 1
+   }
+  },
+  {
+   "input": "a: x y",
+   "error": "invalid YAML: while scanning a simple key"
+  },
+  {
+   "input": "a: |\n  x y\n",
+   "error": "invalid YAML: while scanning a simple key"
+  },
+  {
+   "input": "a: x  y",
+   "ok": {
+    "a": "x y"
+   }
+  },
+  {
+   "input": "a: 'x y'",
+   "ok": {
+    "a": "x y"
+   }
+  }
+ ],
+ "dump": [
+  {
+   "name": "Demo",
+   "text": "project_name: Demo\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "my-project",
+   "text": "project_name: my-project\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "my_project",
+   "text": "project_name: my_project\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "tasklog",
+   "text": "project_name: tasklog\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "123",
+   "text": "project_name: '123'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "007",
+   "text": "project_name: '007'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "1.5",
+   "text": "project_name: '1.5'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "0x10",
+   "text": "project_name: '0x10'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "1e3",
+   "text": "project_name: 1e3\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "true",
+   "text": "project_name: 'true'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "True",
+   "text": "project_name: 'True'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "yes",
+   "text": "project_name: 'yes'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "No",
+   "text": "project_name: 'No'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "null",
+   "text": "project_name: 'null'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "Null",
+   "text": "project_name: 'Null'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "~",
+   "text": "project_name: '~'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "",
+   "text": "project_name: ''\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "=",
+   "text": "project_name: '='\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "<<",
+   "text": "project_name: '<<'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "2026-01-01",
+   "text": "project_name: '2026-01-01'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "2026-01-01 10:00:00",
+   "text": "project_name: '2026-01-01 10:00:00'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "Hello World",
+   "text": "project_name: Hello World\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "hello  two  spaces",
+   "text": "project_name: hello  two  spaces\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a: b",
+   "text": "project_name: 'a: b'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a:b",
+   "text": "project_name: a:b\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a #b",
+   "text": "project_name: 'a #b'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a# b",
+   "text": "project_name: a# b\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "#hash",
+   "text": "project_name: '#hash'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "x,y",
+   "text": "project_name: x,y\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "x, y",
+   "text": "project_name: x, y\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "{a}",
+   "text": "project_name: '{a}'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "[a]",
+   "text": "project_name: '[a]'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a{b}",
+   "text": "project_name: a{b}\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "- x",
+   "text": "project_name: '- x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "-x",
+   "text": "project_name: -x\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "- ",
+   "text": "project_name: '- '\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "-",
+   "text": "project_name: '-'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "?x",
+   "text": "project_name: ?x\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "? x",
+   "text": "project_name: '? x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": ":x",
+   "text": "project_name: :x\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": ": x",
+   "text": "project_name: ': x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "!x",
+   "text": "project_name: '!x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "&x",
+   "text": "project_name: '&x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "*x",
+   "text": "project_name: '*x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "|x",
+   "text": "project_name: '|x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": ">x",
+   "text": "project_name: '>x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "%x",
+   "text": "project_name: '%x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "@x",
+   "text": "project_name: '@x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "`x",
+   "text": "project_name: '`x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "'",
+   "text": "project_name: ''''\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "''",
+   "text": "project_name: ''''''\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "\"",
+   "text": "project_name: '\"'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "it's",
+   "text": "project_name: it's\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "O'Reilly's",
+   "text": "project_name: O'Reilly's\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "say \"hi\"",
+   "text": "project_name: say \"hi\"\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "both ' and \"",
+   "text": "project_name: both ' and \"\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "back\\slash",
+   "text": "project_name: back\\slash\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "café",
+   "text": "project_name: café\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "日本語",
+   "text": "project_name: 日本語\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "emoji 😀 here",
+   "text": "project_name: emoji 😀 here\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "nbsp here",
+   "text": "project_name: nbsp here\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": " lead",
+   "text": "project_name:  lead\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": " lead",
+   "text": "project_name: ' lead'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "trail ",
+   "text": "project_name: 'trail '\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "  both  ",
+   "text": "project_name: '  both  '\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "tab\there",
+   "text": "project_name: \"tab\\there\"\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "line\nbreak",
+   "text": "project_name: 'line\n\n  break'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "two\n\nbreaks",
+   "text": "project_name: 'two\n\n\n  breaks'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "\nlead",
+   "text": "project_name: '\n\n  lead'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "trail\n",
+   "text": "project_name: 'trail\n\n  '\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "---",
+   "text": "project_name: '---'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "--- x",
+   "text": "project_name: '--- x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "...",
+   "text": "project_name: '...'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "...x",
+   "text": "project_name: '...x'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "text": "project_name: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+   "text": "project_name: word word word word word word word word word word word word word word\n  word word word word word word word word word word word word word word word word\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab",
+   "text": "project_name: ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab\n  ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab ab\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "text": "project_name: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b",
+   "text": "project_name: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n  b\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "long name with spaces long name with spaces long name with spaces long name with spaces long name with spaces long name with spaces long name with spaces long name with spaces",
+   "text": "project_name: long name with spaces long name with spaces long name with spaces long\n  name with spaces long name with spaces long name with spaces long name with spaces\n  long name with spaces\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a\u0007b",
+   "text": "project_name: \"a\\ab\"\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "ab",
+   "text": "project_name: 'a  b'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a﻿b",
+   "text": "project_name: \"a\\uFEFFb\"\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "\u0000",
+   "text": "project_name: \"\\0\"\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "a b",
+   "text": "project_name: 'a   b'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "project.name",
+   "text": "project_name: project.name\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "project/name",
+   "text": "project_name: project/name\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "project name",
+   "text": "project_name: project name\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "UPPER",
+   "text": "project_name: UPPER\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "MiXeD-1",
+   "text": "project_name: MiXeD-1\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "name: with colon and spaces",
+   "text": "project_name: 'name: with colon and spaces'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "name with # hash",
+   "text": "project_name: 'name with # hash'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "[bracket start",
+   "text": "project_name: '[bracket start'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "{brace start",
+   "text": "project_name: '{brace start'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "name]",
+   "text": "project_name: name]\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  },
+  {
+   "name": "key: [x]",
+   "text": "project_name: 'key: [x]'\nschema_version: 1\ndirectories:\n  BR: BR\n  PR: PR\n  Stories: Stories\n  Artifacts: Artifacts\n"
+  }
+ ]
+}

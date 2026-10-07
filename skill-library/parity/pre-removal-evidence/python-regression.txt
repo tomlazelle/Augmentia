@@ -1,0 +1,11 @@
+== python default suite
+.........................................................                [100%]
+623 passed, 10 skipped in 11.17s
+== python SDLC_TEST_INSTALL=1
+.........................................................                [100%]
+632 passed, 1 skipped in 40.33s
+== python oracle replay of frozen corpus
+replayed 1844 case(s): 1844 matched, 0 differed; 4 flagged non-replayable
+== oracle diff vs python-1.0.0rc1 (skill-library/sdlc)
+(empty = unchanged)
+== python Python 3.11.16

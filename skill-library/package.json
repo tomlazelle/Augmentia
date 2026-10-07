@@ -1,0 +1,52 @@
+{
+  "name": "@augmentia/sdlc",
+  "version": "2.0.0-rc.1",
+  "description": "Deterministic helper CLI for the first-party, Markdown-first SDLC Skill library",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "sdlc": "bin/sdlc.js",
+    "sdlc-install-claude-code": "bin/sdlc-install-claude-code.js",
+    "sdlc-install-codex": "bin/sdlc-install-codex.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"dist/test/*.test.js\"",
+    "corpus": "npm run build && node dist/test/corpus-replay.js",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "yaml": "^2.9.1"
+  },
+  "files": [
+    "bin",
+    "dist/src",
+    "skills",
+    "shared",
+    "templates",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomlazelle/Augmentia.git"
+  },
+  "keywords": [
+    "sdlc",
+    "ai-agents",
+    "claude-code",
+    "codex",
+    "skills",
+    "markdown"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

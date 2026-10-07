@@ -1,6 +1,6 @@
 __pycache__/
-*.egg-info/
-.pytest_cache/
 .venv/
-build/
+node_modules/
 dist/
+reports/
+*.tgz

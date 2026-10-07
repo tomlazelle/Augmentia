@@ -4,19 +4,18 @@ A Markdown-first SDLC toolkit for AI coding agents. It gives **Claude Code** and
 
 Everything lives as plain Markdown in your own repository. The agent runs the conversation; `sdlc` allocates IDs, maintains indexes, validates, reports status and is the only thing that can publish. You stay in charge: agents never approve documents, test evidence comes from tests that were actually run, and nothing is published without a preview you have confirmed.
 
-Release candidate: **`sdlc-skill-library` 1.0.0rc1** (M1–M6 complete and approved).
+Release candidate: **`@augmentia/sdlc` 2.0.0-rc.1** (Node.js/TypeScript; M1–M6 behavior approved, M7 migration in progress).
 
 ## Install
 
-Prerequisites: Python 3.11+, [`pipx`](https://pipx.pypa.io/), and Claude Code and/or Codex. For publishing you also need the GitHub CLI (`gh`), logged in.
+Prerequisites: Node.js 22+ (with npm), and Claude Code and/or Codex. For publishing you also need the GitHub CLI (`gh`), logged in.
 
 ```bash
-git clone <this repository> && cd Augmentia
-pipx install --python python3.11 ./skill-library
-sdlc --version          # sdlc 1.0.0rc1
+npm install -g @augmentia/sdlc
+sdlc --version          # sdlc 2.0.0-rc.1
 ```
 
-This installs three commands: `sdlc`, `sdlc-install-claude-code` and `sdlc-install-codex`. To upgrade after pulling changes, run `pipx install --force --python python3.11 ./skill-library`; to remove it, unlink the Skills (below) and run `pipx uninstall sdlc-skill-library`.
+This installs three commands: `sdlc`, `sdlc-install-claude-code` and `sdlc-install-codex`. To upgrade, run `npm install -g @augmentia/sdlc@<version>`; to remove it, unlink the Skills (below) and run `npm uninstall -g @augmentia/sdlc`.
 
 ## Use it in a project
 
@@ -36,7 +35,7 @@ sdlc-install-claude-code --scope project     # -> .claude/skills/
 sdlc-install-codex       --scope project     # -> .agents/skills/
 ```
 
-You should see 15 Skills in each folder. Consider adding `.claude/` and `.agents/` to `.gitignore` (the links point into your own pipx environment).
+You should see 15 Skills in each folder. Consider adding `.claude/` and `.agents/` to `.gitignore` (the links point into your own npm installation).
 
 **3. Ask your agent to use a Skill.** Start the agent in the project and say, for example:
 
@@ -94,9 +93,9 @@ sdlc list           # documents and their statuses
 
 ```bash
 cd skill-library
-python3.11 -m venv .venv && .venv/bin/pip install -e ".[test]"
-.venv/bin/python -m pytest -q                         # default suite
-SDLC_TEST_INSTALL=1 .venv/bin/python -m pytest -q     # also builds and installs the package (release gate)
+npm install
+npm test                      # builds, then runs the Node test suite (includes the frozen-corpus replay and the tarball install tests)
+npm pack                      # produces augmentia-sdlc-2.0.0-rc.1.tgz
 ```
 
-The canonical Skills are in `skill-library/skills/`, shared conventions in `skill-library/shared/`, and the CLI in `skill-library/sdlc/`. In a source checkout `python -m sdlc` is equivalent to `sdlc`.
+The canonical Skills are in `skill-library/skills/`, shared conventions in `skill-library/shared/`, project-instruction templates in `skill-library/templates/`, and the CLI in `skill-library/src/` (TypeScript, compiled to `dist/`). In a source checkout, `node skill-library/bin/sdlc.js` is equivalent to `sdlc`. The frozen behavioral corpus in `skill-library/parity/` is the permanent regression suite for the externally observable behavior of the 1.0 implementation; the Python 1.0.0rc1 implementation that produced it is preserved only as the git tag `python-1.0.0rc1`. Licensed under the [MIT License](LICENSE).

@@ -1,0 +1,931 @@
+{
+ "seed": 20260929,
+ "inputs": 19233,
+ "different": 154,
+ "differences": [
+  {
+   "input": "fixtures/m3/approved-revision: US-005-view-reminder-delivery-status.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/approved-revision: US-005-view-reminder-delivery-status.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/approved-revision: US-003-send-automatic-appointment-reminder.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/approved-revision: US-003-send-automatic-appointment-reminder.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/approved-revision: US-004-configure-clinic-reminder-lead-time.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/approved-revision: US-004-configure-clinic-reminder-lead-time.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/codex-prd-stories: US-001-browse-available-study-rooms.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/codex-prd-stories: US-001-browse-available-study-rooms.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/codex-prd-stories: PR-001-library-study-room-reservations.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/codex-prd-stories: PR-001-library-study-room-reservations.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/overlap-new: BR-001-appointment-reminders-for-small-clinics.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/overlap-new: BR-001-appointment-reminders-for-small-clinics.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/overlap-new: BR-002-vendor-business-case-for-appointment-reminder-product.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/overlap-new: BR-002-vendor-business-case-for-appointment-reminder-product.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/overlap-revised: BR-001-appointment-reminders-for-small-clinics.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/overlap-revised: BR-001-appointment-reminders-for-small-clinics.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/removed-requirement: US-004-configure-clinic-reminder-lead-time.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/removed-requirement: US-004-configure-clinic-reminder-lead-time.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/removed-requirement: PR-001-appointment-reminders-for-clinics.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/removed-requirement: PR-001-appointment-reminders-for-clinics.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/stories-full: US-004-configure-clinic-reminder-lead-time.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m3/stories-full: US-004-configure-clinic-reminder-lead-time.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-blocked-not-run: TEST-001-test-plan-for-turning-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-blocked-not-run: TEST-001-test-plan-for-turning-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-blocked-not-run: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-blocked-not-run: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-blocked-not-run: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-blocked-not-run: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-chain-verified: TEST-001-test-plan-for-turning-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-chain-verified: TEST-001-test-plan-for-turning-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-failed-verification: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-failed-verification: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-failed-verification: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-failed-verification: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-rework-reverified: DES-001-standard-library-slugify.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-rework-reverified: DES-001-standard-library-slugify.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-rework-reverified: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-rework-reverified: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-tbd-not-accepted: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us001-tbd-not-accepted: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us002-codex-standalone: PR-001-text-utilities.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m4/us002-codex-standalone: PR-001-text-utilities.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/edited-after-preview-unpublished: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/edited-after-preview-unpublished: US-001-turn-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/edited-after-preview-unpublished: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/edited-after-preview-unpublished: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-claude-us001-us002: DES-001-standard-library-slugify.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-claude-us001-us002: DES-001-standard-library-slugify.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-claude-us001-us002: US-002-count-the-words-in-a-text.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-claude-us001-us002: US-002-count-the-words-in-a-text.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-claude-us001-us002: TEST-001-test-plan-for-turning-a-title-into-a-url-slug.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-claude-us001-us002: TEST-001-test-plan-for-turning-a-title-into-a-url-slug.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-codex-us002: US-002-count-the-words-in-a-text.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-codex-us002: US-002-count-the-words-in-a-text.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-codex-us002: DES-001-standard-library-slugify.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-codex-us002: DES-001-standard-library-slugify.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-codex-us002: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "fixtures/m5/published-codex-us002: PLAN-001-implement-slugify-for-us-001.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:109d9aed69: US-002-reset-password.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:109d9aed69: US-002-reset-password.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:c836f64243: PR-001-appointment-reminders-for-clinics.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:c836f64243: PR-001-appointment-reminders-for-clinics.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:c836f64243: BR-001-appointment-reminders-for-small-clinics.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:c836f64243: BR-001-appointment-reminders-for-small-clinics.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:41554ce0c3: TEST-001-plan.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:41554ce0c3: TEST-001-plan.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:66fc521c66: US-001-register-user.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:66fc521c66: US-001-register-user.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:a6f28cf517: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:a6f28cf517: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d2bc3f1a1e: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d2bc3f1a1e: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:8aa9953f5c: US-002-reset-password.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:8aa9953f5c: US-002-reset-password.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f19ed5cae8: US-001-first-story.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f19ed5cae8: US-001-first-story.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6ff4273c6c: US-003-register-user.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6ff4273c6c: US-003-register-user.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6ff4273c6c: US-002-reset-password.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6ff4273c6c: US-002-reset-password.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:901b358022: DES-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:901b358022: DES-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:9b8d2df9ac: PLAN-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:9b8d2df9ac: PLAN-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:117b1dcd11: BR-002-second.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:117b1dcd11: BR-002-second.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:117b1dcd11: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:117b1dcd11: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:117b1dcd11: US-001-register-user.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:117b1dcd11: US-001-register-user.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f003a7403d: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f003a7403d: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f003a7403d: BR-001-business-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f003a7403d: BR-001-business-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d7d2b2b3e5: US-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d7d2b2b3e5: US-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:99995b0ec3: BR-001-business-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:99995b0ec3: BR-001-business-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:27cbfd2560: US-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:27cbfd2560: US-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:013508777b: US-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:013508777b: US-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:013508777b: TEST-001-plan.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:013508777b: TEST-001-plan.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:71d33c740d: DES-002-loose.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:71d33c740d: DES-002-loose.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:71d33c740d: PLAN-001-wrong.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:71d33c740d: PLAN-001-wrong.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6a36801bef: BR-001-business-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6a36801bef: BR-001-business-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6a36801bef: US-004-followed.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6a36801bef: US-004-followed.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:8010ccea3c: PR-001-p.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:8010ccea3c: PR-001-p.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f81283232a: US-001-register-user.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:f81283232a: US-001-register-user.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:93126f51c5: TEST-001-plan.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:93126f51c5: TEST-001-plan.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:52a9b50b2f: US-001-register-user.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:52a9b50b2f: US-001-register-user.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:b96833bec9: US-002-reset-password.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:b96833bec9: US-002-reset-password.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6b7406ce88: US-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6b7406ce88: US-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6b7406ce88: TEST-001-plan.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:6b7406ce88: TEST-001-plan.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:308962b2ed: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:308962b2ed: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d1c03df462: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d1c03df462: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d1c03df462: BR-002-from-branch-a.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d1c03df462: BR-002-from-branch-a.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d1c03df462: BR-002-from-branch-b.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:d1c03df462: BR-002-from-branch-b.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:097fa01eb1: US-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:097fa01eb1: US-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:e7f34edc11: PR-001-p.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:e7f34edc11: PR-001-p.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:e7f34edc11: US-001-s.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:e7f34edc11: US-001-s.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:1a55a00810: TEST-001-plan.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:1a55a00810: TEST-001-plan.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:1a55a00810: US-001-thing.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:1a55a00810: US-001-thing.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:ea0af182d7: PR-001-product-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:ea0af182d7: PR-001-product-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:426e64450f: US-001-register-user.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:426e64450f: US-001-register-user.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:dc755ca7dd: TEST-001-plan.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:dc755ca7dd: TEST-001-plan.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:46c45f6d1b: US-003-third-one.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:46c45f6d1b: US-003-third-one.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:46c45f6d1b: BR-001-business-overview.md <invalid-utf8>: list --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  },
+  {
+   "input": "corpus:46c45f6d1b: BR-001-business-overview.md <invalid-utf8>: update-map --json",
+   "problems": [
+    "EX-007: Node did not report invalid-encoding"
+   ]
+  }
+ ]
+}
